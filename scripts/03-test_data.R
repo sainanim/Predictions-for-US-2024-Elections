@@ -96,86 +96,6 @@ if (all(survey_data$income %in% valid_income)) {
   print("There are invalid values in the 'income' column.")
 }
 
-#### Test survey data ####
-
-print("Testing survey data")
-
-# Test 1: Check for missing data
-if (any(is.na(survey_data))) {
-  print("There are missing data.")
-} else {
-  print("There are no missing data.")
-}
-
-# Test 2: Check the number of columns
-if (ncol(survey_data) == 6) {
-  print("Number of columns is 6.")
-} else {
-  print("Number of columns is not 6.")
-}
-
-# Test 3: Check the values in the "vote_biden" column
-if (all(survey_data$vote_biden %in% c(1, 0))) {
-  print("Values in the 'vote_biden' column are valid.")
-} else {
-  print("There are invalid values in the 'vote_biden' column.")
-}
-
-# Test 4: Check the values in the "age" column
-valid_age <- c("18-29", "30-44", "45-59", "60+")
-if (all(survey_data$age %in% valid_age)) {
-  print("Values in the 'age' column are valid.")
-} else {
-  print("There are invalid values in the 'age' column.")
-}
-
-# Test 5: Check the values in the "education" column
-valid_education <- c("High school", "More than high school", "Less than high school")
-if (all(survey_data$education %in% valid_education)) {
-  print("Values in the 'education' column are valid.")
-} else {
-  print("There are invalid values in the 'education' column.")
-}
-
-# Test 6: Check the values in the "state" column
-valid_state <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California",
-                 "Colorado", "Connecticut", "Delaware", "District of Columbia",
-                 "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
-                 "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
-                 "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-                 "Mississippi", "Missouri", "Nebraska", "Nevada", "New Hampshire",
-                 "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
-                 "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
-                 "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
-                 "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming")
-if (all(survey_data$state %in% valid_state)) {
-  print("Values in the 'state' column are valid.")
-} else {
-  print("There are invalid values in the 'state' column.")
-}
-
-# Test 7: Check the values in the "state" column
-if (all(survey_data$sex %in% c("female", "male"))) {
-  print("Values in the 'sex' column are valid.")
-} else {
-  print("There are invalid values in the 'sex' column.")
-}
-
-# Test 8: Check the values in the "income" column
-valid_income <- c("$25,000 to $49,999",
-                  "$150,000 or more",
-                  "$50,000 to $74,999",
-                  "$10,000 to $24,999",
-                  "$100,000 to $149,999",
-                  "$75,000 to $99,999",
-                  "Less than $10,000")
-
-if (all(survey_data$income %in% valid_income)) {
-  print("Values in the 'income' column are valid.")
-} else {
-  print("There are invalid values in the 'income' column.")
-}
-
 #### Test poststratification data ####
 
 print("Testing poststratification data")
@@ -300,3 +220,4 @@ if (all(unique_poststrat %in% unique_survey) && all(unique_survey %in% unique_po
 } else {
   print("The 'education' columns have different unique values.")
 }
+

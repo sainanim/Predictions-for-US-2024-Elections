@@ -15,6 +15,7 @@ survey_data <- read_csv("data/raw_data/31120637.csv")
 poststrat_data <- arrow::read_parquet("data/raw_data/usa.parquet")
 
 survey_data <- survey_data %>% 
+  filter(Q1_2 %in% c("Favorable", "Unfavorable")) %>% 
   mutate(age = case_when(
             ppage <= 29 ~ "18-29",
             ppage <= 44 ~ "30-44",
@@ -31,8 +32,11 @@ survey_data <- survey_data %>%
          sex = case_when(
            ppgender == "Female" ~ "female",
            ppgender == "Male" ~ "male",
-           TRUE ~ as.character(ppgender))) %>%
-  select(age, education, income, state, sex) 
+           TRUE ~ as.character(ppgender)),
+         vote_biden = case_when(
+           Q1_2 == "Favorable" ~ 1,
+           Q1_2 == "Unfavorable" ~ 0)) %>%
+  select(age, education, income, state, sex, vote_biden) 
 
 poststrat_data <- poststrat_data %>%
   mutate(AGE = as.numeric(AGE)) %>%

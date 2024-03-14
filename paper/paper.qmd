@@ -23,6 +23,22 @@ library(palmerpenguins)
 ```
 
 # Introduction
+A key turning point in the political environment of the United States occurred with the 2022 presidential election,
+which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American
+Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic
+aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election
+period.
+
+Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income,
+education, state of residence, and gender) and voting behavior during the 2022 presidential election. Using this
+extensive dataset, our goal is to identify trends and factors that influence voting behaviour, clarifying the
+complex relationship between personal traits and local factors that influences election results.
+
+Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive
+statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions.
+Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight
+on the condition of American democracy and the factors motivating involvement in politics and engagement.
+
 
 # Data
 

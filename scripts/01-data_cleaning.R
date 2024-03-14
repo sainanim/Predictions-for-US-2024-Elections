@@ -7,13 +7,18 @@
 # Pre-requisites: Download the raw files as instructed in the README.md and save them in data/raw_data
 
 #### Workspace setup ####
+# install.packages("tidyverse")
+# install.packages("arrow")
 library(tidyverse)
 library(arrow)
 
 #### Clean data ####
+
+# read data to clean
 survey_data <- read_csv("data/raw_data/31120637.csv")
 poststrat_data <- arrow::read_parquet("data/raw_data/usa.parquet")
 
+# Clean and preprocess survey data
 survey_data <- survey_data %>% 
   filter(Q1_2 %in% c("Favorable", "Unfavorable")) %>% 
   mutate(age = case_when(
@@ -38,6 +43,7 @@ survey_data <- survey_data %>%
            Q1_2 == "Unfavorable" ~ 0)) %>%
   select(age, education, income, state, sex, vote_biden) 
 
+# Clean and preprocess poststratification data
 poststrat_data <- poststrat_data %>%
   mutate(AGE = as.numeric(AGE)) %>%
   filter(AGE >= 18, STATEICP != 64, STATEICP != 6, FTOTINC >= 0) %>%

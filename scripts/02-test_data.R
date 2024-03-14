@@ -4,10 +4,12 @@
 # Date: 9 March 2024
 # Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Run 02-data_cleaning.R
+# Pre-requisites: Run 01-data_cleaning.R
 
 
 #### Workspace setup ####
+# install.packages("tidyverse")
+# install.packages("arrow")
 library(tidyverse)
 library(arrow)
 

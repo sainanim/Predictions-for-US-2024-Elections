@@ -1,0 +1,72 @@
+---
+title: "Who will win the US 2024 election?!!"
+subtitle: "My subtitle if needed"
+author:
+  - Monica Sainani
+  - Kaavya Kalani
+thanks: "Code and data are available at: LINK."
+date: today
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+# Introduction
+
+# Data
+
+##Introduction to the Data:
+With a focus on the American Community Survey (ACS) 2022 sample,
+we present a summary of the dataset utilized in our statistical research study in this part.
+Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
+socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in
+both home and group quarters, offering a comprehensive view of the American population.
+
+Since the ACS 2022 sample is weighted, the data are guaranteed to accurately reflect the demographic makeup of the
+country's population. Weighting improves the reliability and accuracy of statistical analyses and conclusions generated
+from the dataset by facilitating more precise extrapolation of findings from the sample to the larger population.
+
+The ACS 2022 sample is noteworthy for its geographic structure, where the Public Use Microdata Area (PUMA) is the
+smallest recognizable geographic unit.
+Geographic areas that do not cross state boundaries and have a population of at least 100,000 are known as PUMAs.
+This physical separation makes it easier to analyze regional differences and trends in socioeconomic and demographic
+traits, enabling scholars to investigate the subtleties of voting patterns and electoral dynamics throughout the nation.
+
+All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing
+insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make
+up the dataset and consider how important they are to comprehending voting patterns and electoral results in relation
+to the 2022 presidential election.
+
+## Introduction to the Variables
+These are he key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
+election. These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
+socio-economic, and geographic characteristics that may influence individuals' voting preferences.
+
+Age: Age is a representation of each candidate's actual age as of the election. A key demographic factor that might
+affect voting patterns, generational dynamics, and political opinions is age.
+
+Income: The pre-tax amount of the respondents' families' entire annual income from all sources is shown as income.
+As a stand-in for socioeconomic position and financial security, income has the power to influence people's political
+choices, attitudes, and worldviews.
+
+Education: Based on the highest year of school or degree earned, respondents' educational attainment is indicated by
+their education. knowledge electoral dynamics requires a knowledge of the important variable of educational attainment,
+which is directly connected to political ideology, civic participation, and voter turnout.
+
+State: The respondents' state of residence provides information about where their housing units are located and makes
+it possible to analyze local politics and voting trends. The political climate, the priorities of policies, and the
+demographic makeup of a state can all affect how people vote and how elections turn out.
+
+Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender
+dynamics, which may have an impact on voting patterns and election results.

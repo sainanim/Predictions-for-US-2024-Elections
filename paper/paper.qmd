@@ -180,6 +180,10 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
 ```
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # Calculate proportions by age
 proportions_age <- poststrat_data %>%
   group_by(state, sex, age, education, income) %>%
@@ -230,6 +234,10 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
 ```
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # sex
 # Calculate proportions by sex
 proportions_sex <- poststrat_data %>%
@@ -281,6 +289,10 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
 ```
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # Predictions and intervals from Bayesian model
 library(rstan)
 

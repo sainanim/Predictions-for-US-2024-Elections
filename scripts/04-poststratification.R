@@ -17,10 +17,11 @@ library(modelsummary)
 library(rstanarm)
 library(tidybayes)
 library(broom.mixed)
+library(here)
 
-poststrat_data <- arrow::read_parquet("data/analysis_data/poststrat_data.parquet")
-survey_data <- arrow::read_parquet("data/analysis_data/survey_data.parquet")
-us_election_model <- readRDS(file = "models/single_bay.rds")
+poststrat_data <- arrow::read_parquet(file = here("data/analysis_data/poststrat_data.parquet"))
+survey_data <- arrow::read_parquet(file = here("data/analysis_data/survey_data.parquet"))
+us_election_model <- readRDS(file = here("models/single_bay.rds"))
 
 # By state
 proportions_state <- poststrat_data |>

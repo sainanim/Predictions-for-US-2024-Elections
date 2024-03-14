@@ -18,7 +18,7 @@ abstract: "This study investigates the dynamics of voting behaviour during the U
 
  This research contributes to a better understanding of the factors influencing political engagement in American
  democracy by offering insightful information that might guide future electoral strategies and policy discussion."
- format: pdf
+format: pdf
 number-sections: true
 bibliography: references.bib
 ---
@@ -91,7 +91,7 @@ up the dataset and consider how important they are to comprehending voting patte
 to the 2022 presidential election.
 
 ## Introduction to the Variables
-These are he key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
+These are the key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
 election. These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
 socio-economic, and geographic characteristics that may influence individuals' voting preferences.
 
@@ -113,8 +113,71 @@ demographic makeup of a state can all affect how people vote and how elections t
 Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender
 dynamics, which may have an impact on voting patterns and election results.
 
-## Post stratification
+## Model
+We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
+
+For our analysis, a logistic regression model will be first used to model the proportion of the voters who will vote for Biden. The model will be based on five independent demographic variables: state, sex, age, education and income.
+
+The logistic regression model we will be using is:
+\begin{equation}
+\log\left(\frac{\hat{p}}{1 - \hat{p}}\right) = \beta_0 + \beta_1 \times \text{state} + \beta_2 \times \text{sex} + \beta_3 \times \text{age} + \beta_4 \times \text{education} + \beta_5 \times \text{income} \label{eq:model1}
+\end{equation}
+
+where,
+
+- $\hat{p}$ represents the probability that someone will vote for Biden
+- $\beta_0$ represents the intercept term of this logistical regression. It is the probability that someone will vote for Biden if the predictors' values are zero
+- $\beta_1$ is the coefficient corresponding to state
+- $\beta_2$ is the coefficient corresponding to sex
+- $\beta_3$ is the coefficients corresponding to age
+- $\beta_4$ is the coefficients corresponding to education
+- $\beta_5$ is the coefficients corresponding to income
+
+In our model, normal priors with a mean of 0 and a standard deviation of 2.5 are used for both the coeffients and the intercept. Setting the mean of the priors to 0 implies that there is no expectation of a particular direction or magnitude for the coefficients or intercept. We chose this as we have no expectation of the same. The standard deviation of 2.5 reflects the uncertainty or variability in the prior beliefs. We chose a moderately wide prior to allow for a reasonable amount of uncertainty. 
+
+The chosen priors allow the data to largely determine the posterior distribution as they are relatively non-informative. They don't heavily influence the results unless the data provide strong evidence to the contrary.
+
+The use of moderately wide priors can also help regularize the model, preventing overfitting and providing more stable estimates, particularly when dealing with limited data.
+
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-model-coefficients
+#| tbl-cap: Coefficients of the model
+
+library(modelsummary)
+library(kableExtra)
+
+# Create model summary
+model_summary <- modelsummary(us_election_model)
+
+# Print model summary in a nice format
+print(model_summary)
+
+# Extract coefficients
+coefficients <- broom::tidy(us_election_model, conf.int = TRUE)
+coefficients |> kable(digits = 2)
+```
+
+@tbl-model-coefficients shows the coefficients for our model that can be used in the equation along with the standard error and the 95% confidence interval. The standard error (SE) is a measure of the precision with which a sample statistic estimates a population parameter. It quantifies the variability of sample statistics around the population parameter. A 95% confidence interval means that if you were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean.
+
+After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US Presidential Elections. Post-stratification is a statistical technique employed to refine survey estimates by aligning them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of the entire population. 
+
+In this process, we first the organize the survey data based on the demographic factors we decided to investigate. This involved counting individuals in each group to understand the sample distribution and computing proportions to depict the relative contribution of each demographic group to the overall survey sample.
+
+Predictive model is then employed to generate probabilities for each demographic group, capturing the nuanced political preferences within distinct strata. These probabilities were summarized by aggregating them within each demographic group. 
+
+Applying this post-stratification process results in enhanced predictions that align with the known population distribution within each stratum. These adjusted values contribute to a more accurate representation of party
+votes within specific demographic categories, ensuring our findings are reflective of the broader population.
+
+
+## Results
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # Calculate proportions by state
 proportions_state <- poststrat_data %>%
   group_by(state, sex, age, education, income) %>%
@@ -173,6 +236,10 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
 ```
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # Calculate proportions by age
 proportions_age <- poststrat_data %>%
   group_by(state, sex, age, education, income) %>%
@@ -223,6 +290,10 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
 ```
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # sex
 # Calculate proportions by sex
 proportions_sex <- poststrat_data %>%
@@ -274,6 +345,10 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
 ```
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # Predictions and intervals from Bayesian model
 library(rstan)
 

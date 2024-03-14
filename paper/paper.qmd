@@ -71,6 +71,7 @@ on the condition of American democracy and the factors motivating involvement in
 ##Introduction to the Data:
 With a focus on the American Community Survey (ACS) 2022 sample,
 we present a summary of the dataset utilized in our statistical research study in this part.
+
 Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
 socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in
 both home and group quarters, offering a comprehensive view of the American population.
@@ -87,8 +88,8 @@ traits, enabling scholars to investigate the subtleties of voting patterns and e
 
 All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing
 insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make
-up the dataset and consider how important they are to comprehending voting patterns and electoral results in relation
-to the 2022 presidential election.
+up the dataset and consider how important they are to comprehending voting patterns and electoral results for the 2024 election
+using this 20022 survey data.
 
 ## Introduction to the Variables
 These are the key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
@@ -385,3 +386,21 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
   scale_x_discrete(labels = c("Vote for Biden", "Will not vote for Biden"))
 
 ```
+
+
+# Results
+
+
+# Discussion
+
+
+
+
+
+# Appendix
+
+
+# References
+
+
+

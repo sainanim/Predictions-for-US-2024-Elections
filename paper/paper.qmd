@@ -18,7 +18,7 @@ abstract: "This study investigates the dynamics of voting behaviour during the U
 
  This research contributes to a better understanding of the factors influencing political engagement in American
  democracy by offering insightful information that might guide future electoral strategies and policy discussion."
- format: pdf
+format: pdf
 number-sections: true
 bibliography: references.bib
 ---

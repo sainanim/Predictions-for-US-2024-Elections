@@ -6,15 +6,14 @@ author:
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
-abstract: "This study investigates the dynamics of voting behaviour during the US presidential election in 2022 using
- data from the American Community Survey(ACS) 2022 sample.
+abstract: "This study investigates the dynamics of voting behaviour using data from the American Community Survey(ACS)
+2022 sample and predicting what the results would be for the 2024 Election.
 
  We look at the correlation between voting preferences and demographic, socioeconomic, and geographic factors,
- such as age, income, education, state of residency, and gender.
+ such as age, family income, education, state of residency, and sex.
 
  Our study reveals complex trends and determinants of voting behaviour, providing understanding into the complex
  relationships between personal traits and local factors that influence election results.
-
 
  This research contributes to a better understanding of the factors influencing political engagement in American
  democracy by offering insightful information that might guide future electoral strategies and policy discussion."
@@ -49,7 +48,7 @@ us_election_model <- readRDS(file = here("models/single_bay.rds"))
 ```
 
 # Introduction
-A key turning point in the political environment of the United States occurred with the 2022 presidential election,
+A key turning point in the political environment of the United States occurred with the 2020 presidential election,
 which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American
 Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic
 aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election
@@ -69,8 +68,10 @@ on the condition of American democracy and the factors motivating involvement in
 # Data
 
 ##Introduction to the Data:
-With a focus on the American Community Survey (ACS) 2022 sample,
-we present a summary of the dataset utilized in our statistical research study in this part.
+We will use the most recent American Community Survey, the 2022 Sample, as the post-stratification dataset
+to represent the voter population and adjust the weight of the survey data. The population for this sample was the
+entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected.
+ACS 2022 dataset consists of 3,373,378 observations.
 
 Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
 socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in
@@ -92,8 +93,8 @@ up the dataset and consider how important they are to comprehending voting patte
 using this 20022 survey data.
 
 ## Introduction to the Variables
-These are he key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
-election. These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
+These are the key variables utilized in our statistical analysis of voting behavior during the 2022 survey.
+These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
 socio-economic, and geographic characteristics that may influence individuals' voting preferences.
 
 Age: Age is a representation of each candidate's actual age as of the election. A key demographic factor that might
@@ -113,6 +114,11 @@ demographic makeup of a state can all affect how people vote and how elections t
 
 Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender
 dynamics, which may have an impact on voting patterns and election results.
+
+
+Cleaning process:
+
+
 
 ## Post stratification
 ```{r}

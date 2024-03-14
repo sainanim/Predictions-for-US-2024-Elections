@@ -6,14 +6,15 @@ author:
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
-abstract: "This study investigates the dynamics of voting behaviour using data from the American Community Survey(ACS)
-2022 sample and predicting what the results would be for the 2024 Election.
+abstract: "This study investigates the dynamics of voting behaviour during the US presidential election in 2022 using
+ data from the American Community Survey(ACS) 2022 sample.
 
  We look at the correlation between voting preferences and demographic, socioeconomic, and geographic factors,
- such as age, family income, education, state of residency, and sex.
+ such as age, income, education, state of residency, and gender.
 
  Our study reveals complex trends and determinants of voting behaviour, providing understanding into the complex
  relationships between personal traits and local factors that influence election results.
+
 
  This research contributes to a better understanding of the factors influencing political engagement in American
  democracy by offering insightful information that might guide future electoral strategies and policy discussion."
@@ -48,7 +49,7 @@ us_election_model <- readRDS(file = here("models/single_bay.rds"))
 ```
 
 # Introduction
-A key turning point in the political environment of the United States occurred with the 2020 presidential election,
+A key turning point in the political environment of the United States occurred with the 2022 presidential election,
 which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American
 Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic
 aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election
@@ -68,11 +69,8 @@ on the condition of American democracy and the factors motivating involvement in
 # Data
 
 ##Introduction to the Data:
-We will use the most recent American Community Survey, the 2022 Sample, as the post-stratification dataset
-to represent the voter population and adjust the weight of the survey data. The population for this sample was the
-entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected.
-ACS 2022 dataset consists of 3,373,378 observations.
-
+With a focus on the American Community Survey (ACS) 2022 sample,
+we present a summary of the dataset utilized in our statistical research study in this part.
 Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
 socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in
 both home and group quarters, offering a comprehensive view of the American population.
@@ -89,12 +87,12 @@ traits, enabling scholars to investigate the subtleties of voting patterns and e
 
 All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing
 insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make
-up the dataset and consider how important they are to comprehending voting patterns and electoral results for the 2024 election
-using this 20022 survey data.
+up the dataset and consider how important they are to comprehending voting patterns and electoral results in relation
+to the 2022 presidential election.
 
 ## Introduction to the Variables
-These are the key variables utilized in our statistical analysis of voting behavior during the 2022 survey.
-These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
+These are the key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
+election. These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
 socio-economic, and geographic characteristics that may influence individuals' voting preferences.
 
 Age: Age is a representation of each candidate's actual age as of the election. A key demographic factor that might
@@ -115,13 +113,71 @@ demographic makeup of a state can all affect how people vote and how elections t
 Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender
 dynamics, which may have an impact on voting patterns and election results.
 
+## Model
+We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
 
-Cleaning process:
+For our analysis, a logistic regression model will be first used to model the proportion of the voters who will vote for Biden. The model will be based on five independent demographic variables: state, sex, age, education and income.
 
+The logistic regression model we will be using is:
+\begin{equation}
+\log\left(\frac{\hat{p}}{1 - \hat{p}}\right) = \beta_0 + \beta_1 \times \text{state} + \beta_2 \times \text{sex} + \beta_3 \times \text{age} + \beta_4 \times \text{education} + \beta_5 \times \text{income} \label{eq:model1}
+\end{equation}
 
+where,
 
-## Post stratification
+- $\hat{p}$ represents the probability that someone will vote for Biden
+- $\beta_0$ represents the intercept term of this logistical regression. It is the probability that someone will vote for Biden if the predictors' values are zero
+- $\beta_1$ is the coefficient corresponding to state
+- $\beta_2$ is the coefficient corresponding to sex
+- $\beta_3$ is the coefficients corresponding to age
+- $\beta_4$ is the coefficients corresponding to education
+- $\beta_5$ is the coefficients corresponding to income
+
+In our model, normal priors with a mean of 0 and a standard deviation of 2.5 are used for both the coeffients and the intercept. Setting the mean of the priors to 0 implies that there is no expectation of a particular direction or magnitude for the coefficients or intercept. We chose this as we have no expectation of the same. The standard deviation of 2.5 reflects the uncertainty or variability in the prior beliefs. We chose a moderately wide prior to allow for a reasonable amount of uncertainty. 
+
+The chosen priors allow the data to largely determine the posterior distribution as they are relatively non-informative. They don't heavily influence the results unless the data provide strong evidence to the contrary.
+
+The use of moderately wide priors can also help regularize the model, preventing overfitting and providing more stable estimates, particularly when dealing with limited data.
+
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-model-coefficients
+#| tbl-cap: Coefficients of the model
+
+library(modelsummary)
+library(kableExtra)
+
+# Create model summary
+model_summary <- modelsummary(us_election_model)
+
+# Print model summary in a nice format
+print(model_summary)
+
+# Extract coefficients
+coefficients <- broom::tidy(us_election_model, conf.int = TRUE)
+coefficients |> kable(digits = 2)
+```
+
+@tbl-model-coefficients shows the coefficients for our model that can be used in the equation along with the standard error and the 95% confidence interval. The standard error (SE) is a measure of the precision with which a sample statistic estimates a population parameter. It quantifies the variability of sample statistics around the population parameter. A 95% confidence interval means that if you were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean.
+
+After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US Presidential Elections. Post-stratification is a statistical technique employed to refine survey estimates by aligning them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of the entire population. 
+
+In this process, we first the organize the survey data based on the demographic factors we decided to investigate. This involved counting individuals in each group to understand the sample distribution and computing proportions to depict the relative contribution of each demographic group to the overall survey sample.
+
+Predictive model is then employed to generate probabilities for each demographic group, capturing the nuanced political preferences within distinct strata. These probabilities were summarized by aggregating them within each demographic group. 
+
+Applying this post-stratification process results in enhanced predictions that align with the known population distribution within each stratum. These adjusted values contribute to a more accurate representation of party
+votes within specific demographic categories, ensuring our findings are reflective of the broader population.
+
+
+## Results
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 # Calculate proportions by state
 proportions_state <- poststrat_data %>%
   group_by(state, sex, age, education, income) %>%
@@ -329,21 +385,3 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
   scale_x_discrete(labels = c("Vote for Biden", "Will not vote for Biden"))
 
 ```
-
-
-# Results
-
-
-# Discussion
-
-
-
-
-
-# Appendix
-
-
-# References
-
-
-

@@ -20,7 +20,7 @@ library(broom.mixed)
 
 poststrat_data <- arrow::read_parquet("data/analysis_data/poststrat_data.parquet")
 survey_data <- arrow::read_parquet("data/analysis_data/survey_data.parquet")
-freq <- readRDS(file = "models/single_bay.rds")
+us_election_model <- readRDS(file = "models/single_bay.rds")
 
 # By state
 proportions_state <- poststrat_data |>

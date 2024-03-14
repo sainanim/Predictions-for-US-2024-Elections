@@ -276,6 +276,11 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
 # Predictions and intervals from Bayesian model
 library(rstan)
 
+general_proportion_data <- poststrat_data |>
+  group_by(state, sex, age, education, income) |>
+  summarise(n = n()) |>
+  mutate(prop = n / sum(n))
+
 # Predictions
 general_proportion_data$estimate <- as.vector(predict(us_election_model, newdata = general_proportion_data))
 

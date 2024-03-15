@@ -9,6 +9,7 @@ date-format: long
 abstract: "This study investigates the dynamics of voting behaviour of americans leveraging demographic, socioeconomic, and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as predictors. Our study indictates that Biden is likely to be re-elected as the president with a 10% lead. This research contributes to a better understanding of the factors influencing political engagement in American democracy by offering insightful information that might guide future electoral strategies and policy discussion."
 format: pdf
 number-sections: true
+toc: true
 bibliography: references.bib
 ---
 
@@ -31,7 +32,9 @@ library(rstanarm)
 library(tidybayes)
 library(broom.mixed)
 library(here)
+library(kableExtra)
 
+# read the datasets and model
 poststrat_data <- arrow::read_parquet(file = here("data/analysis_data/poststrat_data.parquet"))
 survey_data <- arrow::read_parquet(file = here("data/analysis_data/survey_data.parquet"))
 us_election_model <- readRDS(file = here("models/single_bay.rds"))
@@ -45,6 +48,7 @@ Our estimand is the relationship between demographic, socio-economic, and geogra
 Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive
 statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions. Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
 
+The paper is further organised into three sections: Data, Model, Results, and Discussion. In the Data section, we discuss how the datasets to be used for the analysis were obtained and pre-processed. We will explain the variables of interest in the datasets for the analysis. The Model section describes the model being used for the analyis. The Results section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight the weaknesses of our analysis.
 
 # Data
 
@@ -112,9 +116,6 @@ The use of moderately wide priors can also help regularize the model, preventing
 #| label: tbl-model-coefficients
 #| tbl-cap: Coefficients of the model
 
-library(modelsummary)
-library(kableExtra)
-
 # Create model summary
 model_summary <- modelsummary(us_election_model)
 
@@ -143,6 +144,8 @@ votes within specific demographic categories, ensuring our findings are reflecti
 #| echo: false
 #| warning: false
 #| message: false
+#| label: fig-support-state
+#| fig-cap: Estimated proportion support for Biden by State
 
 # Calculate proportions by state
 proportions_state <- poststrat_data %>%
@@ -200,11 +203,14 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
   theme(legend.position = "bottom")
 
 ```
+@fig-support-state
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
+#| label: fig-support-age
+#| fig-cap: Estimated proportion support for Biden by Age Groups
 
 # Calculate proportions by age
 proportions_age <- poststrat_data %>%
@@ -254,11 +260,15 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
        x = "Age groups")
 
 ```
+@fig-support-age
+
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
+#| label: fig-support-sex
+#| fig-cap: Estimated proportion support for Biden by Sex
 
 # sex
 # Calculate proportions by sex
@@ -309,14 +319,15 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
        x = "Sex groups")
 
 ```
+@fig-support-sex
+
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
-
-# Predictions and intervals from Bayesian model
-library(rstan)
+#| label: fig-support-general
+#| fig-cap: Estimated proportion support for Biden
 
 general_proportion_data <- poststrat_data |>
   group_by(state, sex, age, education, income) |>
@@ -352,99 +363,80 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
 
 ```
 
-
+@fig-support-general
 
 
 # Discussion
 
 ## Insights Gained:
 
-Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables,
-Age, State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination
-within the population towards voting for Biden or the Democratic Party.
+Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables, Age, State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination within the population towards voting for Biden or the Democratic Party.
 
 In the graph showcasing different regions and their voting for biden, we noticed that
 This is similar to the findings in https://www.brookings.edu/articles/forecasting-the-presidential-election-what-can-we-learn-from-the-models/
 that address the same prediction for 2024. Our model and the article predict that states that support Trump are
 from the middle and Midwest parts of the US, whereas coastal states and the Northeast tend to vote for Biden.
-Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like
-manufacturing and agriculture have defined the middle and Midwest regions of the United States.
-These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly
-aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states,
-which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically
-tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform,
-which Biden advocated.
+Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like manufacturing and agriculture have defined the middle and Midwest regions of the United States.
+These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states, which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform, which Biden advocated.
 
 
 We also created a graph highlighting different age groups and what their voting opinions are. We noticed that
-the youngest group of voters (age 18-24). The emphasis on social justice and LGBTQ+ rights among the younger generation
-may be the cause of this difference. Since there are undoubtedly more young people who identify as sexual
-minorities, there is a trend for them to support Biden and the Democratic Party. We also noticed that the older
-generation i.e individuals of age group higher than 60 years old were inclined to voting for Biden as well.
-National security and conservative principles, which are frequently connected to the Republican Party,
-may have an impact on the elder generation.
+the youngest group of voters (age 18-24). The emphasis on social justice and LGBTQ+ rights among the younger generation may be the cause of this difference. Since there are undoubtedly more young people who identify as sexual minorities, there is a trend for them to support Biden and the Democratic Party. We also noticed that the older generation i.e individuals of age group higher than 60 years old were inclined to voting for Biden as well.
+National security and conservative principles, which are frequently connected to the Republican Party, may have an impact on the elder generation.
 
-Lastly, our third variable of study was Sex. We noticed a slight bias towards the democratic party from the females
-than the male gender. Women are predicted to vote for the democratic party 0.6 times more than men.
-Studies have consistently demonstrated that there is a gender difference in political ideology, with women generally
-favoring liberal or progressive policies over those of males. https://www.pewresearch.org/politics/2023/07/12/voting-patterns-in-the-2022-elections/#:~:text=In%20the%202022%20midterms%2C%2054,2022%20while%2051%25%20favored%20Democrats.
-This discrepancy is sometimes linked to the fact that women prioritize issues more than men do, with women giving social
-welfare, healthcare, education, and reproductive rights—all of which are more in line with the
-Democratic Party program. With its focus on women's rights, healthcare reform, and inclusivity,
-Biden's campaign may have connected more deeply with female voters, resulting in higher levels of support.
-
-
+Lastly, our third variable of study was Sex. We noticed a slight bias towards the democratic party from the females than the male gender. Women are predicted to vote for the democratic party 0.6 times more than men.
+Studies have consistently demonstrated that there is a gender difference in political ideology, with women generally favoring liberal or progressive policies over those of males. https://www.pewresearch.org/politics/2023/07/12/voting-patterns-in-the-2022-elections/#:~:text=In%20the%202022%20midterms%2C%2054,2022%20while%2051%25%20favored%20Democrats.
+This discrepancy is sometimes linked to the fact that women prioritize issues more than men do, with women giving social welfare, healthcare, education, and reproductive rights—all of which are more in line with the Democratic Party program. With its focus on women's rights, healthcare reform, and inclusivity, Biden's campaign may have connected more deeply with female voters, resulting in higher levels of support.
 
 ## Comparative Analysis:
-Our findings align with existing literature on electoral behavior, which underscores the significance
-of demographic variables in shaping voter preferences. While our study offers insights into the inclination
-towards voting for Biden, it is important to contextualize our findings within the broader landscape of
-political science research. https://projects.economist.com/us-2020-forecast/president/how-this-works
+Our findings align with existing literature on electoral behavior, which underscores the significance of demographic variables in shaping voter preferences. While our study offers insights into the inclination towards voting for Biden, it is important to contextualize our findings within the broader landscape of political science research. https://projects.economist.com/us-2020-forecast/president/how-this-works
 
 
-Our analysis contributes to a growing body of evidence highlighting the complex interplay between
-socio-economic factors and political attitudes, providing valuable insights for future research and
-decision-making in the political arena.
-
-
+Our analysis contributes to a growing body of evidence highlighting the complex interplay between socio-economic factors and political attitudes, providing valuable insights for future research and decision-making in the political arena.
 
 ## Contributions to Knowledge: (Need to edit this)
-By focusing our analysis on specific demographic variables, we contributed to a deeper understanding of the underlying
-determinants shaping electoral outcomes. Our study corroborates existing literature suggesting that demographic factors
-such as age, income, education, and geographic location play pivotal roles in influencing voter preferences.
+By focusing our analysis on specific demographic variables, we contributed to a deeper understanding of the underlying determinants shaping electoral outcomes. Our study corroborates existing literature suggesting that demographic factors such as age, income, education, and geographic location play pivotal roles in influencing voter preferences. 
 (https://projects.economist.com/us-2020-forecast/president/how-this-works)
-Moreover, our utilization of post-stratification techniques allowed for a more granular examination of voting behavior,
-offering insights into the heterogeneity of voter sentiment across different demographic groups.
-
+Moreover, our utilization of post-stratification techniques allowed for a more granular examination of voting behavior, offering insights into the heterogeneity of voter sentiment across different demographic groups.
 
 
 ## Weaknesses and Limitations: (Need to edit this)
 
-While our analysis provides valuable insights into voter behavior, it is important to acknowledge several limitations.
+While our analysis provides valuable insights into voter behavior, it is important to acknowledge several limitations. 
 Firstly, our reliance on sample data from the 2022 survey may introduce biases and inaccuracies in our predictions.
-Our reliance on sample data from the 2022 survey may introduce a sampling bias, as the sample might not fully represent
-the diversity of the electorate. Consequently, this could lead to inaccuracies in our predictions and limit the
-generalizability of our findings to the broader population.
+Our reliance on sample data from the 2022 survey may introduce a sampling bias, as the sample might not fully represent the diversity of the electorate. Consequently, this could lead to inaccuracies in our predictions and limit the generalizability of our findings to the broader population.
 
-Additionally, while we focused on key demographic variables, other influential factors such as political ideology and
-campaign messaging were not fully accounted for in our model. This means that our research has the inaccuracy of
-Incomplete Variable Consideration.
+Additionally, while we focused on key demographic variables, other influential factors such as political ideology and campaign messaging were not fully accounted for in our model. This means that our research has the inaccuracy of Incomplete Variable Consideration.
 
 Furthermore, uncertainties in the post-stratification process may impact the reliability of our estimates,
 warranting caution in interpreting the observed inclination towards voting for Biden.
 
-
-
 ## Future Directions:
 Moving forward, further research is warranted to address the limitations identified in our study and advance our
-understanding of electoral dynamics. Future studies could explore the integration of additional data sources, such as
-social media sentiment analysis and polling data, to enhance the accuracy of election predictions.
-Additionally, efforts to improve transparency and reproducibility in data collection and analysis are essential for
-enhancing the reliability and validity of electoral forecasts.
-
+understanding of electoral dynamics. Future studies could explore the integration of additional data sources, such as social media sentiment analysis and polling data, to enhance the accuracy of election predictions.
+Additionally, efforts to improve transparency and reproducibility in data collection and analysis are essential for enhancing the reliability and validity of electoral forecasts.
 
 ## Data Source:(Add where the second dataset is from)
 The data utilized in this study were sourced from the 2022 survey,
 supplemented by post-stratification data obtained from the American Community Surveys (ACS).
 These datasets provided comprehensive information on voter demographics, socio-economic characteristics,
 and geographic location, enabling a robust analysis of voting behavior in the 2020 US presidential election.
+
+# Appendix
+
+## Cleaning
+
+## Survey dataset
+Here is a glimpse of the survey data set used
+
+```{r}
+head(survey_data)
+```
+
+## Poststratification dataset
+Here is a glimpse of the poststratification data set used
+```{r}
+head(poststrat_data)
+```
+
+# References

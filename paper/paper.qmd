@@ -89,7 +89,7 @@ Our post-stratification data is from the most recent American Community Survey (
 There are a large number of different features available and the variables we chose are age, income, education, state and sex to match with the variables from our survey. These variables were cleaned and the dataset was preprocessed so the values and categories match with the survey dataset. 
 
 
-## Model
+# Model
 We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
 
 For our analysis, a logistic regression model will be first used to model the proportion of the voters who will vote for Biden. The model will be based on five independent demographic variables: state, sex, age, education and income.
@@ -125,9 +125,6 @@ The use of moderately wide priors can also help regularize the model, preventing
 # Create model summary
 model_summary <- modelsummary(us_election_model)
 
-# Print model summary in a nice format
-print(model_summary)
-
 # Extract coefficients
 coefficients <- broom::tidy(us_election_model, conf.int = TRUE)
 coefficients |> kable(digits = 2)
@@ -145,7 +142,7 @@ Applying this post-stratification process results in enhanced predictions that a
 votes within specific demographic categories, ensuring our findings are reflective of the broader population.
 
 
-## Results
+# Results
 ```{r}
 #| echo: false
 #| warning: false

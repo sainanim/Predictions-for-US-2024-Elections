@@ -170,6 +170,16 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
 
 ```
 @fig-support-state
+In @fig-support-state we see the percentage of the votes for Biden/Democratic party. This graph uses the data we
+collected after the post-stratification. Here, the red dots on the graph represent the voting percentage and the red
+lines are the error bars. The black vertical line with dashes indicates the line of proportion. Here, it is the equal
+split between support for Biden and support for the opposing candidate, Trump.
+
+The states that have points to the left of the black vertical line are the states voting for Trump,
+and the states on the right are voting for Biden. We see that the majority of the votes for the democratic party
+are found from the Northeast,Midwest  and the West Coast states. For example, the difference in votes for Biden
+between Oklahoma and New Mexico is more than 50%, but states like Oregon and Maine are neutral in terms of voting
+for either parties.
 
 ```{r}
 #| echo: false
@@ -186,7 +196,14 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
 
 ```
 @fig-support-age
+In @fig-support-age, we used the data to find the proportion of the voters categorized by age, who would vote for the
+Democratic party. We found a pattern that the group of youngest voters and the group of the senior citizen votes are
+more likely to vote for the Democratic Party(Biden).
 
+We see that 45% of the individuals from age group 18-29 are voting
+for biden as well as 50% of the individuals from the age group of 60+ years. Meanwhile, only 35% of people in the age
+group of 45-59 are voting for Biden. Hence, in this graph we see the trend that people of ages from 30-59 are less likely
+to vote for the democratic party.
 
 ```{r}
 #| echo: false
@@ -203,7 +220,8 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
 
 ```
 @fig-support-sex
-
+@fig-support-sex shows the proportion of Female voters that would vote for the Democratic Party as compared to the Male
+voters. We see a 10% difference in the proportion. Here, we see that Women are 10% more likely to vote
 
 ```{r}
 #| echo: false

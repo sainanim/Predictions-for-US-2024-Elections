@@ -1,7 +1,7 @@
-# Predictions for the 2024 Presential Elections Winner
+# Predictions for the 2024 US Presidential Elections Winner
 
 ## Overview
-The study investigates the dynamics of voting behaviour of americans leveraging demographic, socioeconomic, and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as predictors. This research contributes to a better understanding of the factors influencing political engagement in American democracy by offering insightful information that might guide future electoral strategies and policy discussion.
+The study investigates the dynamics of voting behaviour of Americans leveraging demographic, socioeconomic, and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as predictors. This research contributes to a better understanding of the factors influencing political engagement in American democracy by offering insightful information that might guide future electoral strategies and policy discussion.
 
 To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
 
@@ -11,7 +11,7 @@ To obtain the raw data for this file, follow the instructions in data.txt in `da
 ## File Structure
 The repo is structured as:
 
--   `data/raw_data` contains theinstructions to obtain the raw data.
+-   `data/raw_data` contains the instructions to obtain the raw data.
 -   `data/analysis_data` contains the cleaned dataset that was constructed.
 -   `data/poststratified` contains different sets of poststratified datasets.
 -   `model` contains fitted the model. 

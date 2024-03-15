@@ -252,7 +252,7 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
 
 @fig-support-sex shows the proportion of Female voters that would vote for the Democratic Party as compared to the Male
 voters. We see more than 10% difference in the proportion. Here, we see that Women are 10% more likely to vote for Biden.
-While only 40% of the men in US would vote for Biden, more than 50% of women would vote for the Democratic Party.
+While only 40% of the men in US would vote for Biden, more than 50% of women would vote for the Biden.
 
 ```{r}
 #| echo: false
@@ -278,7 +278,7 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
 
 @fig-support-general looks at the division of voters for each party. The sample here is all the individuals who took
 the survey and what the proportions are in general population of the United States. We see that more than 50% of the
-population would vote for Biden or the Democratic Party and the rest would vote for Trump. This graph clearly shows the
+population would vote for Biden and the rest would vote for Trump. This graph clearly shows the
 conclusion we can deduce from our research that with this survey done in 2022, it is clear that the population of the
 United States is inclined towards the Democratic Party.
 

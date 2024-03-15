@@ -1,17 +1,13 @@
 ---
 title: "Biden Projected to Win the 2024 US Presidential Elections"
+subtitle: "Analysis using data from American Community Survey 2022 and Ipsos Poll 2023 levereging Bayesian Logistic Regression with Post-Stratification"
 author:
   - Monica Sainani
   - Kaavya Kalani
 thanks: "Code and data supporting this analysis is available at: https://github.com/sainanim/Predictions-for-the-US-2024-Elections"
 date: today
 date-format: long
-abstract: "This study investigates the dynamics of voting behaviour of Americans leveraging demographic, socioeconomic,
-and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic
-Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as
-predictors. Our study indicates that Biden is likely to be re-elected as the president with a 10% lead. This research
-contributes to a better understanding of the factors influencing political engagement in American democracy by offering
-insightful information that might guide future electoral strategies and policy discussion."
+abstract: "We analyze American voting behavior, focusing on demographic, socioeconomic, and geographic factors. We use a Bayesian Logistic Regression model with Post-Stratification to predict the election outcome between Biden and Trump. We find a strong relationship between age, family income, education, state of residency, sex and likely voting outcome. Our central forecast is a Biden re-election with a 10% lead. This research provides insights into the factors affecting political engagement in the U.S., potentially guiding future electoral strategies and policy discussions."
 format: pdf
 number-sections: true
 toc: true

@@ -192,7 +192,7 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
        x = "Age groups")
 
 ```
-@fig-support-age
+
 In @fig-support-age, we used the data to find the proportion of the voters categorized by age, who would vote for the
 Democratic party. We found a pattern that the group of youngest voters and the group of the senior citizen votes are
 more likely to vote for the Democratic Party(Biden).
@@ -216,9 +216,10 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
        x = "Sex groups")
 
 ```
-@fig-support-sex
+
 @fig-support-sex shows the proportion of Female voters that would vote for the Democratic Party as compared to the Male
-voters. We see a 10% difference in the proportion. Here, we see that Women are 10% more likely to vote
+voters. We see more than 10% difference in the proportion. Here, we see that Women are 10% more likely to vote for Biden.
+While only 40% of the men in US would vote for Biden, more than 50% of women would vote for the Democratic Party.
 
 ```{r}
 #| echo: false
@@ -242,21 +243,31 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
 
 ```
 
-@fig-support-general
+@fig-support-general looks at the division of voters for each party. The sample here is all the individuals who took
+the survey and what the proportions are in general population of the United States. We see that more than 50% of the
+population would vote for Biden or the Democratic Party and the rest would vote for Trump. This graph clearly shows the
+conclusion we can deduce from our research that with this survey done in 2022, it is clear that the population of the
+United States is inclined towards the Democratic Party.
 
 
 # Discussion
 
 ## Insights Gained:
 
-Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables, Age, State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination within the population towards voting for Biden or the Democratic Party.
+Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables, Age,
+State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination within the
+population towards voting for Biden or the Democratic Party.
 
 In the graph showcasing different regions and their voting for biden, we noticed that
-This is similar to the findings in https://www.brookings.edu/articles/forecasting-the-presidential-election-what-can-we-learn-from-the-models/
+This is similar to the findings in https://www.brookings.edu/articles/forecasting-the-presidential-election-what-can-
+we-learn-from-the-models/
 that address the same prediction for 2024. Our model and the article predict that states that support Trump are
 from the middle and Midwest parts of the US, whereas coastal states and the Northeast tend to vote for Biden.
-Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like manufacturing and agriculture have defined the middle and Midwest regions of the United States.
-These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states, which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform, which Biden advocated.
+Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like
+manufacturing and agriculture have defined the middle and Midwest regions of the United States.
+These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly
+aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states,
+which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform, which Biden advocated.
 
 
 We also created a graph highlighting different age groups and what their voting opinions are. We noticed that

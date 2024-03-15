@@ -1,7 +1,7 @@
 # Predictions for the 2024 Presential Elections Winner
 
 ## Overview
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
+The study investigates the dynamics of voting behaviour of americans leveraging demographic, socioeconomic, and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as predictors. This research contributes to a better understanding of the factors influencing political engagement in American democracy by offering insightful information that might guide future electoral strategies and policy discussion.
 
 To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
 

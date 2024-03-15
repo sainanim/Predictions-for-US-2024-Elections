@@ -3,21 +3,10 @@ title: "Who will win the US 2024 election?!!"
 author:
   - Monica Sainani
   - Kaavya Kalani
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data supporting this analysis is available at: https://github.com/sainanim/Predictions-for-the-US-2024-Elections"
 date: today
 date-format: long
-abstract: "This study investigates the dynamics of voting behaviour during the US presidential election in 2022 using
- data from the American Community Survey(ACS) 2022 sample.
-
- We look at the correlation between voting preferences and demographic, socioeconomic, and geographic factors,
- such as age, income, education, state of residency, and gender.
-
- Our study reveals complex trends and determinants of voting behaviour, providing understanding into the complex
- relationships between personal traits and local factors that influence election results.
-
-
- This research contributes to a better understanding of the factors influencing political engagement in American
- democracy by offering insightful information that might guide future electoral strategies and policy discussion."
+abstract: "This study investigates the dynamics of voting behaviour of americans leveraging demographic, socioeconomic, and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as predictors. Our study indictates that Biden is likely to be re-elected as the president with a 10% lead. This research contributes to a better understanding of the factors influencing political engagement in American democracy by offering insightful information that might guide future electoral strategies and policy discussion."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -49,69 +38,46 @@ us_election_model <- readRDS(file = here("models/single_bay.rds"))
 ```
 
 # Introduction
-A key turning point in the political environment of the United States occurred with the 2022 presidential election,
-which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American
-Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic
-aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election
-period.
+A key turning point in the political environment of the United States occurred with the 2020 presidential election, which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election period.
 
-Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income,
-education, state of residence, and gender) and voting behavior during the 2022 presidential election. Using this
-extensive dataset, our goal is to identify trends and factors that influence voting behaviour, clarifying the
-complex relationship between personal traits and local factors that influences election results.
+Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income, education, state of residence, and gender) and voting behavior during the 2022 presidential election. Using this extensive dataset, our goal is to identify trends and factors that influence voting behaviour, clarifying the complex relationship between personal traits and local factors that influences election results.
 
 Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive
-statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions.
-Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight
-on the condition of American democracy and the factors motivating involvement in politics and engagement.
+statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions. Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
 
 
 # Data
 
 ##Introduction to the Data:
-With a focus on the American Community Survey (ACS) 2022 sample,
-we present a summary of the dataset utilized in our statistical research study in this part.
-Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
-socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in
-both home and group quarters, offering a comprehensive view of the American population.
+We will use the most recent American Community Survey, the 2022 Sample, as the post-stratification dataset
+to represent the voter population and adjust the weight of the survey data. The population for this sample was the entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected. ACS 2022 dataset consists of 3,373,378 observations.
 
-Since the ACS 2022 sample is weighted, the data are guaranteed to accurately reflect the demographic makeup of the
-country's population. Weighting improves the reliability and accuracy of statistical analyses and conclusions generated
-from the dataset by facilitating more precise extrapolation of findings from the sample to the larger population.
+Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
+socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in both home and group quarters, offering a comprehensive view of the American population.
+
+Since the ACS 2022 sample is weighted, the data are guaranteed to accurately reflect the demographic makeup of the country's population. Weighting improves the reliability and accuracy of statistical analyses and conclusions generated from the dataset by facilitating more precise extrapolation of findings from the sample to the larger population.
 
 The ACS 2022 sample is noteworthy for its geographic structure, where the Public Use Microdata Area (PUMA) is the
 smallest recognizable geographic unit.
 Geographic areas that do not cross state boundaries and have a population of at least 100,000 are known as PUMAs.
-This physical separation makes it easier to analyze regional differences and trends in socioeconomic and demographic
-traits, enabling scholars to investigate the subtleties of voting patterns and electoral dynamics throughout the nation.
+This physical separation makes it easier to analyze regional differences and trends in socioeconomic and demographic traits, enabling scholars to investigate the subtleties of voting patterns and electoral dynamics throughout the nation.
 
-All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing
-insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make
-up the dataset and consider how important they are to comprehending voting patterns and electoral results in relation
-to the 2022 presidential election.
+All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make up the dataset and consider how important they are to comprehending voting patterns and electoral results for the 2024 election using this 20022 survey data.
 
 ## Introduction to the Variables
-These are the key variables utilized in our statistical analysis of voting behavior during the 2022 presidential
-election. These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
+These are the key variables utilized in our statistical analysis of voting behavior during the 2022 survey.
+These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
 socio-economic, and geographic characteristics that may influence individuals' voting preferences.
 
-Age: Age is a representation of each candidate's actual age as of the election. A key demographic factor that might
-affect voting patterns, generational dynamics, and political opinions is age.
+Age: Age is a representation of each candidate's actual age as of the election. A key demographic factor that might affect voting patterns, generational dynamics, and political opinions is age.
 
-Income: The pre-tax amount of the respondents' families' entire annual income from all sources is shown as income.
-As a stand-in for socioeconomic position and financial security, income has the power to influence people's political
-choices, attitudes, and worldviews.
+Income: The pre-tax amount of the respondents' families' entire annual income from all sources is shown as income. As a stand-in for socioeconomic position and financial security, income has the power to influence people's political choices, attitudes, and worldviews.
 
-Education: Based on the highest year of school or degree earned, respondents' educational attainment is indicated by
-their education. knowledge electoral dynamics requires a knowledge of the important variable of educational attainment,
-which is directly connected to political ideology, civic participation, and voter turnout.
+Education: Based on the highest year of school or degree earned, respondents' educational attainment is indicated by their education. knowledge electoral dynamics requires a knowledge of the important variable of educational attainment, which is directly connected to political ideology, civic participation, and voter turnout.
 
-State: The respondents' state of residence provides information about where their housing units are located and makes
-it possible to analyze local politics and voting trends. The political climate, the priorities of policies, and the
-demographic makeup of a state can all affect how people vote and how elections turn out.
+State: The respondents' state of residence provides information about where their housing units are located and makes it possible to analyze local politics and voting trends. The political climate, the priorities of policies, and the demographic makeup of a state can all affect how people vote and how elections turn out.
 
-Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender
-dynamics, which may have an impact on voting patterns and election results.
+Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender dynamics, which may have an impact on voting patterns and election results.
 
 ## Model
 We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 

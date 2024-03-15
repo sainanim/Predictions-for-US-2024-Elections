@@ -40,13 +40,10 @@ survey_data <- arrow::read_parquet(file = here("data/analysis_data/survey_data.p
 us_election_model <- readRDS(file = here("models/single_bay.rds"))
 
 
-state_vote_for_biden <- read.csv(here("output", "state_vote_for_biden.csv"))
-
-age_vote_for_biden <- read.csv(here("output", "age_vote_for_biden.csv"))
-
-sex_vote_for_biden <- read.csv(here("output", "sex_vote_for_biden.csv"))
-
-general_data <- read.csv(here("output", "general_vote_for_biden.csv"))
+state_vote_for_biden <- read.csv(here("data/poststratified/state_vote_for_biden.csv"))
+age_vote_for_biden <- read.csv(here("data/poststratified/age_vote_for_biden.csv"))
+sex_vote_for_biden <- read.csv(here("data/poststratified/sex_vote_for_biden.csv"))
+general_data <- read.csv(here("data/poststratified/general_vote_for_biden.csv"))
 
 ```
 

@@ -6,7 +6,12 @@ author:
 thanks: "Code and data supporting this analysis is available at: https://github.com/sainanim/Predictions-for-the-US-2024-Elections"
 date: today
 date-format: long
-abstract: "This study investigates the dynamics of voting behaviour of americans leveraging demographic, socioeconomic, and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as predictors. Our study indictates that Biden is likely to be re-elected as the president with a 10% lead. This research contributes to a better understanding of the factors influencing political engagement in American democracy by offering insightful information that might guide future electoral strategies and policy discussion."
+abstract: "This study investigates the dynamics of voting behaviour of Americans leveraging demographic, socioeconomic,
+and geographic factors, such as age, family income, education, state of residency, and sex. We use a Bayesian Logistic
+Regression model with Post-Stratification to predict the outcome between Biden and Trump with the mentioned factors as
+predictors. Our study indicates that Biden is likely to be re-elected as the president with a 10% lead. This research
+contributes to a better understanding of the factors influencing political engagement in American democracy by offering
+insightful information that might guide future electoral strategies and policy discussion."
 format: pdf
 number-sections: true
 toc: true

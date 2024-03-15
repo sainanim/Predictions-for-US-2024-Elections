@@ -326,11 +326,6 @@ such as social media sentiment analysis and polling data, to enhance the accurac
 Additionally, efforts to improve transparency and reproducibility in data collection and analysis are essential
 for enhancing the reliability and validity of electoral forecasts.
 
-## Data Source:(Add where the second dataset is from)
-The data utilized in this study were sourced from the 2022 survey,
-supplemented by post-stratification data obtained from the American Community Surveys (ACS).
-These datasets provided comprehensive information on voter demographics, socio-economic characteristics,
-and geographic location, enabling a robust analysis of voting behavior in the 2020 US presidential election.
 
 # Appendix
 

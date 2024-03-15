@@ -48,52 +48,86 @@ general_data <- read.csv(here("data/poststratified/general_vote_for_biden.csv"))
 ```
 
 # Introduction
-A key turning point in the political environment of the United States occurred with the 2020 presidential election, which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election period.
+A key turning point in the political environment of the United States occurred with the 2020 presidential election,
+which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American
+Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic
+aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election period.
 
-Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income, education, state of residence, and gender) and voting behavior during the 2022 presidential election. Using this extensive dataset, our goal is to identify trends and factors that influence voting behaviour, clarifying the complex relationship between personal traits and local factors that influences election results.
+Our estimand is the relationship between demographic, socio-economic, and geographic variables
+(such as age, income, education, state of residence, and gender) and voting behavior during the 2022 presidential
+election. Using this extensive dataset, our goal is to identify trends and factors that influence voting behaviour,
+clarifying the complex relationship between personal traits and local factors that influences election results.
 
 Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive
-statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions. Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
+statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions.
+Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical
+insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
 
-The paper is further organised into three sections: Data, Model, Results, and Discussion. In the Data section, we discuss how the datasets to be used for the analysis were obtained and pre-processed. We will explain the variables of interest in the datasets for the analysis. The Model section describes the model being used for the analyis. The Results section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight the weaknesses of our analysis.
+The paper is further organised into four sections: Data, Model, Results, and Discussion. In the Data section,
+ discuss how the datasets to be used for the analysis were obtained and pre-processed. We will explain the variables of interest in the datasets for the analysis. The Model section describes the model being used for the analyis. The Results section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight the weaknesses of our analysis.
 
 # Data
 
-##Introduction to the Data:
+## Introduction to the Data:
+
 We will use the most recent American Community Survey, the 2022 Sample, as the post-stratification dataset
-to represent the voter population and adjust the weight of the survey data. The population for this sample was the entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected. ACS 2022 dataset consists of 3,373,378 observations.
+to represent the voter population and adjust the weight of the survey data. The population for this sample was the
+entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected.
+ACS 2022 dataset consists of 3,373,378 observations.
 
 Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic,
-socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in both home and group quarters, offering a comprehensive view of the American population.
+socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in
+both home and group quarters, offering a comprehensive view of the American population.
 
-Since the ACS 2022 sample is weighted, the data are guaranteed to accurately reflect the demographic makeup of the country's population. Weighting improves the reliability and accuracy of statistical analyses and conclusions generated from the dataset by facilitating more precise extrapolation of findings from the sample to the larger population.
+Since the ACS 2022 sample is weighted, the data are guaranteed to accurately reflect the demographic makeup of the
+country's population. Weighting improves the reliability and accuracy of statistical analyses and conclusions
+generated from the dataset by facilitating more precise extrapolation of findings from the sample to the larger population.
 
 The ACS 2022 sample is noteworthy for its geographic structure, where the Public Use Microdata Area (PUMA) is the
 smallest recognizable geographic unit.
 Geographic areas that do not cross state boundaries and have a population of at least 100,000 are known as PUMAs.
-This physical separation makes it easier to analyze regional differences and trends in socioeconomic and demographic traits, enabling scholars to investigate the subtleties of voting patterns and electoral dynamics throughout the nation.
+This physical separation makes it easier to analyze regional differences and trends in socioeconomic and demographic
+traits, enabling scholars to investigate the subtleties of voting patterns and electoral dynamics throughout the nation.
 
-All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make up the dataset and consider how important they are to comprehending voting patterns and electoral results for the 2024 election using this 20022 survey data.
+All things considered, the ACS 2022 sample is a useful tool for statistical analysis and empirical study, providing
+insights into the complex aspects of American culture. In the sections that follow, we explore the variables that make
+up the dataset and consider how important they are to comprehending voting patterns and electoral results for the 2024
+election using this 20022 survey data.
 
 ## Introduction to the Variables
 These are the key variables utilized in our statistical analysis of voting behavior during the 2022 survey.
 These variables are drawn from the American Community Survey (ACS) 2022 sample and encompass demographic,
 socio-economic, and geographic characteristics that may influence individuals' voting preferences.
 
-Age: Age is a representation of each candidate's actual age as of the election. A key demographic factor that might affect voting patterns, generational dynamics, and political opinions is age.
+Age: Age is a representation of each candidate's actual age as of the election.
+A key demographic factor that might affect voting patterns, generational dynamics,
+and political opinions is age.
 
-Income: The pre-tax amount of the respondents' families' entire annual income from all sources is shown as income. As a stand-in for socioeconomic position and financial security, income has the power to influence people's political choices, attitudes, and worldviews.
+Income: The pre-tax amount of the respondents' families' entire annual income
+from all sources is shown as income. As a stand-in for socioeconomic position and
+financial security, income has the power to influence people's political choices, attitudes, and worldviews.
 
-Education: Based on the highest year of school or degree earned, respondents' educational attainment is indicated by their education. knowledge electoral dynamics requires a knowledge of the important variable of educational attainment, which is directly connected to political ideology, civic participation, and voter turnout.
+Education: Based on the highest year of school or degree earned, respondents'
+educational attainment is indicated by their education. knowledge electoral dynamics
+requires a knowledge of the important variable of educational attainment, which is
+directly connected to political ideology, civic participation, and voter turnout.
 
-State: The respondents' state of residence provides information about where their housing units are located and makes it possible to analyze local politics and voting trends. The political climate, the priorities of policies, and the demographic makeup of a state can all affect how people vote and how elections turn out.
+State: The respondents' state of residence provides information about where their
+housing units are located and makes it possible to analyze local politics and voting trends.
+The political climate, the priorities of policies, and the demographic makeup of a state
+can all affect how people vote and how elections turn out.
 
-Sex: The report of sex indicates a person's gender. Political beliefs and actions are greatly influenced by gender dynamics, which may have an impact on voting patterns and election results.
+Sex: The report of sex indicates a person's gender. Political beliefs and actions
+are greatly influenced by gender dynamics, which may have an impact on voting patterns and election results.
 
 ## Model
-We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
+We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024
+US Presidential Elections. Logistic regression is a method used for binary classification to
+predict the probability of a categorical dependent variable.
 
-For our analysis, a logistic regression model will be first used to model the proportion of the voters who will vote for Biden. The model will be based on five independent demographic variables: state, sex, age, education and income.
+For our analysis, a logistic regression model will be first used to model the proportion
+of the voters who will vote for Biden. The model will be based on five independent
+demographic variables: state, sex, age, education and income.
 
 The logistic regression model we will be using is:
 \begin{equation}
@@ -134,15 +168,27 @@ coefficients <- broom::tidy(us_election_model, conf.int = TRUE)
 coefficients |> kable(digits = 2)
 ```
 
-@tbl-model-coefficients shows the coefficients for our model that can be used in the equation along with the standard error and the 95% confidence interval. The standard error (SE) is a measure of the precision with which a sample statistic estimates a population parameter. It quantifies the variability of sample statistics around the population parameter. A 95% confidence interval means that if you were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean.
+@tbl-model-coefficients shows the coefficients for our model that can be used in the equation along with the standard
+error and the 95% confidence interval. The standard error (SE) is a measure of the precision with which a sample
+statistic estimates a population parameter. It quantifies the variability of sample statistics around the population
+parameter. A 95% confidence interval means that if you were to take many samples and construct confidence intervals in
+the same way, approximately 95% of those intervals would contain the true population mean.
 
-After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US Presidential Elections. Post-stratification is a statistical technique employed to refine survey estimates by aligning them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of the entire population. 
+After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US
+Presidential Elections. Post-stratification is a statistical technique employed to refine survey estimates by aligning
+them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of
+the entire population.
 
-In this process, we first the organize the survey data based on the demographic factors we decided to investigate. This involved counting individuals in each group to understand the sample distribution and computing proportions to depict the relative contribution of each demographic group to the overall survey sample.
+In this process, we first the organize the survey data based on the demographic factors we decided to investigate. This
+involved counting individuals in each group to understand the sample distribution and computing proportions to depict
+the relative contribution of each demographic group to the overall survey sample.
 
-Predictive model is then employed to generate probabilities for each demographic group, capturing the nuanced political preferences within distinct strata. These probabilities were summarized by aggregating them within each demographic group. 
+Predictive model is then employed to generate probabilities for each demographic group, capturing the nuanced political
+preferences within distinct strata. These probabilities were summarized by aggregating them within each demographic
+group.
 
-Applying this post-stratification process results in enhanced predictions that align with the known population distribution within each stratum. These adjusted values contribute to a more accurate representation of party
+Applying this post-stratification process results in enhanced predictions that align with the known population
+distribution within each stratum. These adjusted values contribute to a more accurate representation of party
 votes within specific demographic categories, ensuring our findings are reflective of the broader population.
 
 
@@ -235,43 +281,71 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
 
 ## Insights Gained:
 
-Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables, Age, State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination within the population towards voting for Biden or the Democratic Party.
+Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables,
+Age, State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination
+within the population towards voting for Biden or the Democratic Party.
 
 In the graph showcasing different regions and their voting for biden, we noticed that
 This is similar to the findings in https://www.brookings.edu/articles/forecasting-the-presidential-election-what-can-we-learn-from-the-models/
 that address the same prediction for 2024. Our model and the article predict that states that support Trump are
 from the middle and Midwest parts of the US, whereas coastal states and the Northeast tend to vote for Biden.
-Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like manufacturing and agriculture have defined the middle and Midwest regions of the United States.
-These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states, which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform, which Biden advocated.
+Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries
+like manufacturing and agriculture have defined the middle and Midwest regions of the United States.
+These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are
+strongly aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and
+coastline states, which are renowned for their progressive views on culture, urban facilities, and diverse populations,
+have historically tended toward more liberal policies and social ideals that are more in line with the Democratic Party
+platform, which Biden advocated.
 
 
 We also created a graph highlighting different age groups and what their voting opinions are. We noticed that
-the youngest group of voters (age 18-24). The emphasis on social justice and LGBTQ+ rights among the younger generation may be the cause of this difference. Since there are undoubtedly more young people who identify as sexual minorities, there is a trend for them to support Biden and the Democratic Party. We also noticed that the older generation i.e individuals of age group higher than 60 years old were inclined to voting for Biden as well.
-National security and conservative principles, which are frequently connected to the Republican Party, may have an impact on the elder generation.
+the youngest group of voters (age 18-24). The emphasis on social justice and LGBTQ+ rights among the younger generation
+may be the cause of this difference. Since there are undoubtedly more young people who identify as sexual minorities,
+there is a trend for them to support Biden and the Democratic Party. We also noticed that the older generation i.e
+individuals of age group higher than 60 years old were inclined to voting for Biden as well.
+National security and conservative principles, which are frequently connected to the Republican Party, may have an
+impact on the elder generation.
 
-Lastly, our third variable of study was Sex. We noticed a slight bias towards the democratic party from the females than the male gender. Women are predicted to vote for the democratic party 0.6 times more than men.
-Studies have consistently demonstrated that there is a gender difference in political ideology, with women generally favoring liberal or progressive policies over those of males. https://www.pewresearch.org/politics/2023/07/12/voting-patterns-in-the-2022-elections/#:~:text=In%20the%202022%20midterms%2C%2054,2022%20while%2051%25%20favored%20Democrats.
-This discrepancy is sometimes linked to the fact that women prioritize issues more than men do, with women giving social welfare, healthcare, education, and reproductive rights—all of which are more in line with the Democratic Party program. With its focus on women's rights, healthcare reform, and inclusivity, Biden's campaign may have connected more deeply with female voters, resulting in higher levels of support.
+Lastly, our third variable of study was Sex. We noticed a slight bias towards the democratic party from the females than
+the male gender. Women are predicted to vote for the democratic party 0.6 times more than men.
+Studies have consistently demonstrated that there is a gender difference in political ideology, with women generally
+favoring liberal or progressive policies over those of males.
+https://www.pewresearch.org/politics/2023/07/12/voting-patterns-in-the-2022-elections/#:~:text=In%20the%202022%20midterms%2C%2054,2022%20while%2051%25%20favored%20Democrats.
+This discrepancy is sometimes linked to the fact that women prioritize issues more than men do, with women giving
+social welfare, healthcare, education, and reproductive rights—all of which are more in line with the Democratic Party program.
+With its focus on women's rights, healthcare reform, and inclusivity, Biden's campaign may have connected more deeply
+with female voters, resulting in higher levels of support.
 
 ## Comparative Analysis:
-Our findings align with existing literature on electoral behavior, which underscores the significance of demographic variables in shaping voter preferences. While our study offers insights into the inclination towards voting for Biden, it is important to contextualize our findings within the broader landscape of political science research. https://projects.economist.com/us-2020-forecast/president/how-this-works
+Our findings align with existing literature on electoral behavior, which underscores the significance of demographic
+variables in shaping voter preferences. While our study offers insights into the inclination towards voting for Biden,
+it is important to contextualize our findings within the broader landscape of political science research.
+https://projects.economist.com/us-2020-forecast/president/how-this-works
 
 
-Our analysis contributes to a growing body of evidence highlighting the complex interplay between socio-economic factors and political attitudes, providing valuable insights for future research and decision-making in the political arena.
+Our analysis contributes to a growing body of evidence highlighting the complex interplay between socio-economic factors
+and political attitudes, providing valuable insights for future research and decision-making in the political arena.
 
 ## Contributions to Knowledge: (Need to edit this)
-By focusing our analysis on specific demographic variables, we contributed to a deeper understanding of the underlying determinants shaping electoral outcomes. Our study corroborates existing literature suggesting that demographic factors such as age, income, education, and geographic location play pivotal roles in influencing voter preferences. 
+By focusing our analysis on specific demographic variables, we contributed to a deeper understanding of the underlying
+determinants shaping electoral outcomes. Our study corroborates existing literature suggesting that demographic
+factors such as age, income, education, and geographic location play pivotal roles in influencing voter preferences.
 (https://projects.economist.com/us-2020-forecast/president/how-this-works)
-Moreover, our utilization of post-stratification techniques allowed for a more granular examination of voting behavior, offering insights into the heterogeneity of voter sentiment across different demographic groups.
+Moreover, our utilization of post-stratification techniques allowed for a more granular examination of
+voting behavior, offering insights into the heterogeneity of voter sentiment across different demographic groups.
 
 
-## Weaknesses and Limitations: (Need to edit this)
+## Weaknesses and Limitations:
 
 While our analysis provides valuable insights into voter behavior, it is important to acknowledge several limitations. 
 Firstly, our reliance on sample data from the 2022 survey may introduce biases and inaccuracies in our predictions.
-Our reliance on sample data from the 2022 survey may introduce a sampling bias, as the sample might not fully represent the diversity of the electorate. Consequently, this could lead to inaccuracies in our predictions and limit the generalizability of our findings to the broader population.
+Our reliance on sample data from the 2022 survey may introduce a sampling bias, as the sample might not fully
+represent the diversity of the electorate. Consequently, this could lead to inaccuracies in our predictions and
+limit the generalizability of our findings to the broader population.
 
-Additionally, while we focused on key demographic variables, other influential factors such as political ideology and campaign messaging were not fully accounted for in our model. This means that our research has the inaccuracy of Incomplete Variable Consideration.
+Additionally, while we focused on key demographic variables, other influential factors such as political ideology and
+campaign messaging were not fully accounted for in our model. This means that our research has the inaccuracy of
+Incomplete Variable Consideration.
 
 Furthermore, uncertainties in the post-stratification process may impact the reliability of our estimates,
 warranting caution in interpreting the observed inclination towards voting for Biden.

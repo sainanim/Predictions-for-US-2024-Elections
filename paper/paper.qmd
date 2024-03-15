@@ -48,14 +48,42 @@ general_data <- read.csv(here("data/poststratified/general_vote_for_biden.csv"))
 ```
 
 # Introduction
-A key turning point in the political environment of the United States occurred with the 2020 presidential election, which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic, and geographic aspects across the nation, in order to comprehend the patterns underlying voting choices during this 2024 election period.
+A key turning point in the political environment of the United States occurred with the 2020 presidential election,
+which was marked by extreme conflict and serious economic and social challenges. We analyze data from the American
+Community Survey (ACS) 2022 sample, which offers a thorough understanding of demographic, socioeconomic,
+and geographic aspects across the nation, in order to comprehend the patterns underlying voting choices during
+this 2024 election period. This paper focuses on the two major political parties, Democratic and Republican.
 
-Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income, education, state of residence, and gender) and voting behavior during the 2022 presidential election. Using this extensive dataset, our goal is to identify trends and factors that influence voting behaviour, clarifying the complex relationship between personal traits and local factors that influences election results.
+The rivalry between the Democratic and Republican parties, as embodied by their opposing candidates,
+Joe Biden and Donald Trump, has been an iconic feature of the modern American political scene. The Democratic Party's
+nominee is the veteran politician and former Obama vice president Joe Biden. With an emphasis on middle-class families,
+Biden's program prioritizes measures that advance racial justice, healthcare reform, climate action, and economic
+regeneration. He is an advocate of a more compassionate and inclusive style of governing, hoping to bring the
+country back together and bring decorum back into political conversation.
+
+On the other hand, the current Republican Party standard-bearer and President Donald Trump represents a more populist
+and nationalist agenda. A major focus on economic nationalism, immigration restrictions, tax cuts, and
+deregulation have been highlights of Trump's leadership. His administration prioritized themes like law and order,
+trade protectionism, and border security as part of its conservative agenda. Trump's aggressive approach to politics
+is a defining characteristic of his leadership style; it frequently divides public opinion and provokes strong emotions
+from both supporters and opponents.
+
+Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income,
+education, state of residence, and gender) and voting behavior during the 2022 presidential election.
+Using this extensive dataset, our goal is to identify trends and factors that influence voting behaviour,
+clarifying the complex relationship between personal traits and local factors that influences election results.
 
 Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive
-statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions. Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
+statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions.
+Through highlighting the subtleties of voting patterns in the 2022 election, our research provides a critical insight
+on the condition of American democracy and the factors motivating involvement in politics and engagement.
 
-The paper is further organised into three sections: Data, Model, Results, and Discussion. In the Data section, we discuss how the datasets to be used for the analysis were obtained and pre-processed. We will explain the variables of interest in the datasets for the analysis. The Model section describes the model being used for the analysis. The Results section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight the weaknesses of our analysis.
+The paper is further organised into three sections: Data, Model, Results, and Discussion. In the Data section, we
+discuss how the datasets to be used for the analysis were obtained and pre-processed. We will explain the variables of
+interest in the datasets for the analysis. The Model section describes the model being used for the analysis. The Results
+section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion
+section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight
+the weaknesses of our analysis.
 
 # Data
 

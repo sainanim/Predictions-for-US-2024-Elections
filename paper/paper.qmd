@@ -403,14 +403,15 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
   geom_errorbar(aes(ymin = biden_lower, ymax = biden_upper), width = 0) +
   geom_hline(yintercept = 0.5, linetype = "dashed") +
   labs(
-    x = "State",
-    y = "Estimated proportion support for Biden",
+    x = "Estimated proportion support for Biden",
+    y = "State",
     color = "Source"
   ) +
   theme_classic() +
   scale_color_brewer(palette = "Set1") +
   coord_flip() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  theme(axis.text.y = element_text(size = 7, margin = margin(0, 10, 0, 10))) # Adjust size of y-axis text
 
 ```
 

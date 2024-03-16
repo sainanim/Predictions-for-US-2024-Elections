@@ -115,12 +115,249 @@ The results from this dataset are used for our model. Among the range of variabl
 For the variable we are predicting, we created a binary variable which is 1 if the panelist favors Biden and 0 if the panelist favors Trump. There was no question in the poll which asked this direct question so we used “Overall, do you have a favorable or unfavorable impression of...Joe Biden?”. We acknowledge that not favoring Joe Biden does not necessarily imply favoring Donald Trump, but since they are the two major potential candidates, we classify the panelists who chose “Unfavorable” as supporting Trump, i.e not supporting Biden.
 
 
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: Vote count distribution in survey data
+#| label: vote-biden
+
+ggplot(survey_data, aes(x = as.factor(vote_biden))) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(x = "Party Nominee",
+       y = "Count") +
+  scale_x_discrete(labels = c("Vote for Biden", "Vote for Trump"))
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: Variables of interest and the vote proportion distribution
+#| fig-subcap: ["Age", "Sex", "Income", "Education", "State"]
+#| label: fig-variables
+#| layout-ncol: 2
+
+# Calculate the proportion of individuals who voted for Biden for each age
+age_proportions <- survey_data %>%
+  group_by(age, vote_biden) %>%
+  summarize(count = n()) %>%
+  mutate(proportion = count / sum(count))
+
+ggplot(age_proportions, aes(x = age, y = proportion, color = as.factor(vote_biden))) +
+  geom_point(position = position_dodge(width = 0.5), size = 3) +
+  geom_line(aes(group = vote_biden), position = position_dodge(width = 0.5)) +
+  labs(x = "Age Category", y = "Proportion", color = "Vote") +
+  scale_color_manual(values = c("blue", "red"), labels = c("Vote for Trump", "Vote for Biden")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Calculate the proportion of individuals who voted for Biden for each sex
+sex_proportions <- survey_data %>%
+  group_by(sex, vote_biden) %>%
+  summarize(count = n()) %>%
+  mutate(proportion = count / sum(count))
+
+ggplot(sex_proportions, aes(x = sex, y = proportion, color = as.factor(vote_biden))) +
+  geom_point(position = position_dodge(width = 0.5), size = 3) +
+  geom_line(aes(group = vote_biden), position = position_dodge(width = 0.5)) +
+  labs(x = "Sex", y = "Proportion", color = "Vote") +
+  scale_color_manual(values = c("blue", "red"), labels = c("Vote for Trump", "Vote for Biden")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Calculate the proportion of individuals who voted for Biden for each income level
+income_proportions <- survey_data %>%
+  group_by(income, vote_biden) %>%
+  summarize(count = n()) %>%
+  mutate(proportion = count / sum(count))
+
+ggplot(income_proportions, aes(x = income, y = proportion, color = as.factor(vote_biden))) +
+  geom_point(position = position_dodge(width = 0.5), size = 3) +
+  geom_line(aes(group = vote_biden), position = position_dodge(width = 0.5)) +
+  labs(x = "Income", y = "Proportion", color = "Vote") +
+  scale_color_manual(values = c("blue", "red"), labels = c("Vote for Trump", "Vote for Biden")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Calculate the proportion of individuals who voted for Biden for each education level
+education_proportions <- survey_data %>%
+  group_by(education, vote_biden) %>%
+  summarize(count = n()) %>%
+  mutate(proportion = count / sum(count))
+
+ggplot(education_proportions, aes(x = education, y = proportion, color = as.factor(vote_biden))) +
+  geom_point(position = position_dodge(width = 0.5), size = 3) +
+  geom_line(aes(group = vote_biden), position = position_dodge(width = 0.5)) +
+  labs(x = "Education", y = "Proportion", color = "Vote") +
+  scale_color_manual(values = c("blue", "red"), labels = c("Vote for Trump", "Vote for Biden")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Calculate the proportion of individuals who voted for Biden for each state
+state_proportions <- survey_data %>%
+  group_by(state, vote_biden) %>%
+  summarize(count = n()) %>%
+  mutate(proportion = count / sum(count))
+
+ggplot(state_proportions, aes(x = state, y = proportion, color = as.factor(vote_biden))) +
+  geom_point(position = position_dodge(width = 0.5), size = 3) +
+  geom_line(aes(group = vote_biden), position = position_dodge(width = 0.5)) +
+  labs(x = "State", y = "Proportion", color = "Vote") +
+  scale_color_manual(values = c("blue", "red"), labels = c("Vote for Trump", "Vote for Biden")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
 ## Post-stratification Data
 
 Our post-stratification data is from the most recent American Community Survey (ACS), the 2022 Sample. We use this to represent the voter population and adjust the weight of the survey data. The population for this sample was the entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected. ACS 2022 dataset consists of 3,373,378 observations. Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic, socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in both home and group quarters, offering a comprehensive view of the American population. A person becomes an entry in this dataset if they are a part of the sampled subgroups and have responded to the survey.
 
 There are a large number of different features available and the variables we chose are age, income, education, state and sex to match with the variables from our survey. These variables were cleaned and the dataset was preprocessed so the values and categories match with the survey dataset. 
 
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: Comparison of Survey and Census Data Proportions
+#| fig-subcap: ["Age", "Sex", "Income", "Education", "State"]
+#| label: fig-proportions
+#| layout-ncol: 2
+
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+
+# Group and summarize survey_data by age
+df_survey <- survey_data %>% 
+  count(age) %>%
+  mutate(sur_prop = n / sum(n)) %>%
+  select(age, sur_prop)
+
+# Group and summarize poststrat_data (census data) by age
+df_census <- poststrat_data %>% 
+  count(age) %>% 
+  mutate(census_prop = n / sum(n)) %>%
+  select(age, census_prop)
+
+# Merge the two datasets
+combined_data <- left_join(df_census, df_survey, by = "age")
+
+# Plotting
+ggplot(combined_data, aes(age)) +
+  geom_point(aes(y = census_prop, color = "Census data"), size = 3) +
+  geom_point(aes(y = sur_prop, color = "Survey data"), size = 3) +
+  scale_color_manual(values = c("Census data" = "salmon", "Survey data" = "skyblue")) +
+  labs(title = "Age",
+       x = "Age",
+       y = "Proportion") +
+  theme_minimal()
+
+# Group and summarize survey_data by sex
+df_survey <- survey_data %>% 
+  count(sex) %>%
+  mutate(sur_prop = n / sum(n)) %>%
+  select(sex, sur_prop)
+
+# Group and summarize poststrat_data (census data) by sex
+df_census <- poststrat_data %>% 
+  count(sex) %>% 
+  mutate(census_prop = n / sum(n)) %>%
+  select(sex, census_prop)
+
+# Merge the two datasets
+combined_data <- left_join(df_census, df_survey, by = "sex")
+
+# Plotting
+ggplot(combined_data, aes(sex)) +
+  geom_point(aes(y = census_prop, color = "Census data"), size = 3) +
+  geom_point(aes(y = sur_prop, color = "Survey data"), size = 3) +
+  scale_color_manual(values = c("Census data" = "salmon", "Survey data" = "skyblue")) +
+  labs(title = "Sexs",
+       x = "Sex",
+       y = "Proportion") +
+  theme_minimal()
+
+# Group and summarize survey_data by income
+df_survey <- survey_data %>% 
+  count(income) %>%
+  mutate(sur_prop = n / sum(n)) %>%
+  select(income, sur_prop)
+
+# Group and summarize poststrat_data (census data) by income
+df_census <- poststrat_data %>% 
+  count(income) %>% 
+  mutate(census_prop = n / sum(n)) %>%
+  select(income, census_prop)
+
+# Merge the two datasets
+combined_data <- left_join(df_census, df_survey, by = "income")
+
+# Plotting
+ggplot(combined_data, aes(income)) +
+  geom_point(aes(y = census_prop, color = "Census data"), size = 3) +
+  geom_point(aes(y = sur_prop, color = "Survey data"), size = 3) +
+  scale_color_manual(values = c("Census data" = "salmon", "Survey data" = "skyblue")) +
+  labs(title = "Income",
+       x = "Income",
+       y = "Proportion") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+# Group and summarize survey_data by education
+df_survey <- survey_data %>% 
+  count(education) %>%
+  mutate(sur_prop = n / sum(n)) %>%
+  select(education, sur_prop)
+
+# Group and summarize poststrat_data (census data) by education
+df_census <- poststrat_data %>% 
+  count(education) %>% 
+  mutate(census_prop = n / sum(n)) %>%
+  select(education, census_prop)
+
+# Merge the two datasets
+combined_data <- left_join(df_census, df_survey, by = "education")
+
+# Plotting
+ggplot(combined_data, aes(education)) +
+  geom_point(aes(y = census_prop, color = "Census data"), size = 3) +
+  geom_point(aes(y = sur_prop, color = "Survey data"), size = 3) +
+  scale_color_manual(values = c("Census data" = "salmon", "Survey data" = "skyblue")) +
+  labs(title = "Education",
+       x = "Education",
+       y = "Proportion") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+# Group and summarize survey_data by state
+df_survey <- survey_data %>% 
+  count(state) %>%
+  mutate(sur_prop = n / sum(n)) %>%
+  select(state, sur_prop)
+
+# Group and summarize poststrat_data (census data) by state
+df_census <- poststrat_data %>% 
+  count(state) %>% 
+  mutate(census_prop = n / sum(n)) %>%
+  select(state, census_prop)
+
+# Merge the two datasets
+combined_data <- left_join(df_census, df_survey, by = "state")
+
+# Plotting
+ggplot(combined_data, aes(state)) +
+  geom_point(aes(y = census_prop, color = "Census data"), size = 3) +
+  geom_point(aes(y = sur_prop, color = "Survey data"), size = 3) +
+  scale_color_manual(values = c("Census data" = "salmon", "Survey data" = "skyblue")) +
+  labs(title = "State",
+       x = "State",
+       y = "Proportion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
 
 # Model
 We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
@@ -162,7 +399,6 @@ model_summary <- modelsummary(us_election_model)
 coefficients <- broom::tidy(us_election_model, conf.int = TRUE)
 coefficients |> kable(digits = 2)
 ```
-
 @tbl-model-coefficients shows the coefficients for our model that can be used in the equation along with the standard error and the 95% confidence interval. The standard error (SE) is a measure of the precision with which a sample statistic estimates a population parameter. It quantifies the variability of sample statistics around the population parameter. A 95% confidence interval means that if you were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean.
 
 After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US Presidential Elections. Post-stratification is a statistical technique employed to refine survey estimates by aligning them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of the entire population. 
@@ -199,7 +435,6 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
   theme(legend.position = "bottom")
 
 ```
-@fig-support-state
 In @fig-support-state we see the percentage of the votes for Biden/Democratic party. This graph uses the data we
 collected after the post-stratification. Here, the red dots on the graph represent the voting percentage and the red
 lines are the error bars. The black vertical line with dashes indicates the line of proportion. Here, it is the equal

@@ -54,6 +54,26 @@ general_data <- read.csv(here("data/poststratified/general_vote_for_biden.csv"))
 
 # Introduction
 
+The United States stands as one of the most influential political entities globally. This status implies that the leadership of the nation can cause indirect influence on global affairs [@Barnes_2021]. Since its inaugural election in 1788, the US Presidential elections have been a quadrennial tradition, building the course of the nation's history every four years. This year, the 60th presidential election will be held on Tuesday, November 5, 2024. As the nation of the United States approaches their 2024 presidential election, the political landscape is likely to undergo significant shifts and intensification.
+
+The 2020 election brought upon extreme conflict, serious economic and social challenges which changed the societal dynamics for Americans [@Barnes_2021]. Although the decisions are made every 4 years, the United States conducts surveys every year to determine the opinions of citizens and predict the outcome of the elections. In our paper, we conduct a statistical analysis to forecast the major decision by focusing on the two major political parties, Democratic and Republican.
+
+The rivalry between the Democratic and Republican parties, as embodied by their opposing candidates, Joe Biden and Donald Trump, has been an iconic feature of the modern American political scene. The Democratic Party's nominee is the veteran politician and current president Joe Biden. With an emphasis on middle-class families, Biden's program prioritizes measures that advance racial justice, healthcare reform, climate action, and economic regeneration. He is an advocate of a more compassionate and inclusive style of governing, hoping to bring the country back together and bring decorum back into political conversation.
+
+On the other hand, the current Republican Party standard-bearer and former president
+Donald Trump represents a more populist and nationalist agenda. A major focus on economic nationalism, immigration restrictions, tax cuts, and deregulation have been highlights of Trump's leadership. His administration prioritized themes like law and order, trade protectionism, and border security as part of its conservative agenda. Trump's aggressive approach to politics is a defining characteristic of his leadership style; it frequently divides public opinion and provokes strong emotions from both supporters and opponents.
+
+Our estimand is the relationship between demographic, socio-economic, and geographic variables (such as age, income, education, state of residence, and sex) and political preferences. Using this extensive dataset, our goal is to identify trends and factors that influence voting behavior, clarifying the complex relationship between personal traits and local factors that influences election results. Eventually, we aim to predict will Joe Biden win the US 2024 Presidential Elections or will it be Donald Trump.
+
+We use the survey data from the Ipsos Poll [Roper #31120637] along with census data from the American Community Survey (ACS) 2022 sample to understand voting preferences and predict the US 2024 Presidential Elections winner. This is done by leveraging a Bayesian Logistic Regression model with our survey data, which is then post-stratified with our census data. We evaluate voting preferences over some demographic, socioeconomic, and geographic aspects across the nation and then make a final prediction.
+
+Our analysis led to us finding that overall, the younger generations, females and people of the midwest and southern states are highly supportive of the Democratic Party led by Biden. Our overall forecast is a Joe Biden re-election in the 2024 US Presidential Elections.
+
+Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions. Through highlighting the subtleties of voting patterns, our research provides a critical insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
+
+The paper is further organized into four sections: Data, Model, Results, and Discussion. In the Data section, we discuss how the datasets to be used for the analysis were obtained and pre-processed. We will explain the variables of interest in the datasets for the analysis. The Model section describes the model being used for the analysis. The Results section will then highlight and discuss the trends and associations found during the analysis. Lastly, the Discussion section will talk about some interesting trends found in Results in depth, link it to the real world and also highlight the weaknesses and future of our analysis.
+
+
 
 # Data
 

@@ -32,14 +32,20 @@ sex <- sample(c("Female", "Male"), n, replace = TRUE)
 # Simulate family income data (ranging from 20000 to 1000000)
 income <- runif(n, min = 20000, max = 1000000)
 
-# Simulate state data (states in the US)
-states <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
-"Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
-"Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-"New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
-"Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
-"Washington", "West Virginia", "Wisconsin", "Wyoming")
-state <- sample(states, n, replace = TRUE)
+# Simulate state data using the provided codes and labels
+state_codes <- c("09", "23", "25", "33", "44", "50", "10", "34", "36", "42", "01", "18", "26", "36", "55",
+"29", "20", "22", "31", "46", "47", "27", "32", "37", "38", "51", "19", "40", "28", "30", "35", "45", "60",
+"10", "11", "12", "13", "24", "41", "48", "56", "21", "54", "50", "55", "23", "24", "44", "48", "49", "15",
+"16", "17", "05", "06", "08", "78", "97", "98", "99")
+state_labels <- c("Connecticut", "Maine", "Massachusetts", "New Hampshire", "Rhode Island",
+"Vermont", "Delaware", "New Jersey", "New York", "Pennsylvania", "Illinois", "Indiana", "Michigan", "Ohio",
+"Wisconsin", "Iowa", "Kansas", "Minnesota", "Missouri", "Nebraska", "North Dakota", "South Dakota", "Virginia",
+"Alabama", "Arkansas", "Florida", "Georgia", "Louisiana", "Mississippi", "North Carolina", "South Carolina",
+"Texas", "Kentucky", "Maryland", "Oklahoma", "Tennessee", "West Virginia", "Arizona", "Colorado", "Idaho", "Montana",
+"Nevada", "New Mexico", "Utah", "Wyoming", "California", "Oregon", "Washington", "Alaska", "Hawaii", "Puerto Rico",
+"State groupings (1980 Urban/rural sample)", "Overseas Military Installations", "District of Columbia",
+"State not identified")
+state <- sample(state_labels, n, replace = TRUE)
 
 # Simulate general vote data (0 for Trump, 1 for Biden)
 general_vote <- sample(0:1, n, replace = TRUE)

@@ -414,14 +414,14 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
   theme(axis.text.y = element_text(size = 7, margin = margin(0, 10, 0, 10))) # Adjust size of y-axis text
 
 ```
-
 In @fig-support-state we see the percentage of the votes for Biden/Democratic party. This graph uses the data we
-collected after the post-stratification. Here, the red dots on the graph represent the voting percentage and the red lines are the error bars. The black vertical line with dashes indicates the line of proportion. Here, it is the equal split between support for Biden and support for the opposing candidate, Trump.
+collected after the post-stratification. Here, the red dots on the graph represent the voting percentage and the red lines are the error bars. The black vertical line with dashes indicates the line of proportion. Using that, we see that majority of the states of United States are in support for Biden and only 4 states are in support for the opposing candidate, Trump.
 
 The states that have points to the left of the black vertical line are the states voting for Trump,
 and the states on the right are voting for Biden. We see that the majority of the votes for the democratic party
-are found from the Northeast,Midwest  and the West Coast states. For example, the difference in votes for Biden
-between Oklahoma and New Mexico is more than 50%, but states like Oregon and Maine are neutral in terms of voting for either parties.
+are found from the Midwest  and the Southern states while only Rhode Island, Oklahoma, Missouri and Nevada are inclined to vote for Trump.
+Rhode Island is almost 75% more likely to vote for Trump, but in competition most of of Alaska, Hawaii, North Dakota, New Mexico and Kansas are inclined to vote for Biden.
+
 
 ```{r}
 #| echo: false

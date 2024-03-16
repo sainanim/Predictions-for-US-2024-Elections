@@ -4,7 +4,7 @@
 # Date: 9 March 2024
 # Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Download the raw files as instructed in the README.md and save them in data/raw_data
+# Pre-requisites: Download the raw files as instructed in the data/raw_data/instructions.md and save them in data/raw_data
 
 #### Workspace setup ####
 # install.packages("tidyverse")

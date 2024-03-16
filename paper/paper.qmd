@@ -7,7 +7,7 @@ author:
 thanks: "Code and data supporting this analysis is available at: https://github.com/sainanim/Predictions-for-the-US-2024-Elections"
 date: today
 date-format: long
-abstract: "We analyze American voting behavior, focusing on demographic, socioeconomic, and geographic factors. We use a Bayesian Logistic Regression model with Post-Stratification to predict the election outcome between Biden and Trump. We find a strong relationship between age, family income, education, state of residency, sex and likely voting outcome. Our central forecast is a Biden re-election with a 10% lead. This research provides insights into the factors affecting political engagement in the U.S., potentially guiding future electoral strategies and policy discussions."
+abstract: "We analyze American voting behavior, focusing on demographic, socioeconomic, and geographic factors. We use a Bayesian Logistic Regression model with Post-Stratification to predict the election outcome between Biden and Trump. We find a strong relationship between age, family income, education, state of residency, sex and likely voting outcome. Our central forecast is a Biden re-election. This research provides insights into the factors affecting political engagement in the U.S., potentially guiding future electoral strategies and policy discussions."
 format: pdf
 number-sections: true
 toc: true
@@ -112,7 +112,7 @@ The results from this dataset are used for our model. Among the range of variabl
 
 - Sex is the sex reported by the panelist and it is either male or female
 
-For the variable we are predicting, we created a binary variable which is 1 if the panelist favors Biden and 0 if the panelist favors Trump. There was no question in the poll which asked this direct question so we used “Overall, do you have a favorable or unfavorable impression of...Joe Biden?”. We acknowledge that not favoring Joe Biden does not necessarily imply favoring Donald Trump, but since they are the two major potential candidates, we classify the panelists who chose “Unfavorable” as supporting Trump, i.e not supporting Biden.
+For the variable we are predicting, we created a binary variable which is 1 if the panelist favors Biden and 0 if the panelist favors Trump. There was no question in the poll which asked this direct question so we used “Overall, do you have a favorable or unfavorable impression of...Donald Trump?”. We acknowledge that not favoring Donald Trump does not necessarily imply favoring Joe Biden, but since they are the two major potential candidates, we classify the panelists who chose “Unfavorable” as supporting Biden, i.e not supporting Trump.
 
 
 ```{r}
@@ -125,9 +125,11 @@ For the variable we are predicting, we created a binary variable which is 1 if t
 ggplot(survey_data, aes(x = as.factor(vote_biden))) +
   geom_bar(fill = "skyblue", color = "black") +
   labs(x = "Party Nominee",
-       y = "Count") +
-  scale_x_discrete(labels = c("Vote for Biden", "Vote for Trump"))
+       y = "Count") + 
+  scale_x_discrete(labels = c("Vote for Trump", "Vote for Biden"))
 ```
+
+@vote-biden shows the distribution of vote count distribution our survey data. We see that 
 
 ```{r}
 #| echo: false
@@ -369,6 +371,15 @@ The logistic regression model we will be using is:
 \log\left(\frac{\hat{p}}{1 - \hat{p}}\right) = \beta_0 + \beta_1 \times \text{state} + \beta_2 \times \text{sex} + \beta_3 \times \text{age} + \beta_4 \times \text{education} + \beta_5 \times \text{income} \label{eq:model1}
 \end{equation}
 
+$$
+\begin{aligned}
+\beta_0 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_1 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_2 & \sim \mbox{Normal}(0, 2.5)\\
+\beta_3 & \sim \mbox{Normal}(0, 2.5)
+\end{aligned}
+$$
+
 where,
 
 - $\hat{p}$ represents the probability that someone will vote for Biden
@@ -379,7 +390,7 @@ where,
 - $\beta_4$ is the coefficients corresponding to education
 - $\beta_5$ is the coefficients corresponding to income
 
-In our model, normal priors with a mean of 0 and a standard deviation of 2.5 are used for both the coeffients and the intercept. Setting the mean of the priors to 0 implies that there is no expectation of a particular direction or magnitude for the coefficients or intercept. We chose this as we have no expectation of the same. The standard deviation of 2.5 reflects the uncertainty or variability in the prior beliefs. We chose a moderately wide prior to allow for a reasonable amount of uncertainty. 
+In our model, normal priors with a mean of 0 and a standard deviation of 2.5 are used for both the coefficients and the intercept. Setting the mean of the priors to 0 implies that there is no expectation of a particular direction or magnitude for the coefficients or intercept. We chose this as we have no expectation of the same. The standard deviation of 2.5 reflects the uncertainty or variability in the prior beliefs. We chose a moderately wide prior to allow for a reasonable amount of uncertainty. 
 
 The chosen priors allow the data to largely determine the posterior distribution as they are relatively non-informative. They don't heavily influence the results unless the data provide strong evidence to the contrary.
 
@@ -507,7 +518,7 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
   labs(title = "Proportions of Votes",
        y = "Proportion",
        x = "Vote") +
-  scale_x_discrete(labels = c("Vote for Biden", "Will not vote for Biden"))
+  scale_x_discrete(labels = c("Vote for Trump", "Vote for Biden"))
 
 ```
 

@@ -20,7 +20,7 @@ poststrat_data <- arrow::read_parquet("data/raw_data/usa.parquet")
 
 # Clean and preprocess survey data
 survey_data <- survey_data %>% 
-  filter(Q1_2 %in% c("Favorable", "Unfavorable")) %>% 
+  filter(Q1_1 %in% c("Favorable", "Unfavorable")) %>% 
   mutate(age = case_when(
             ppage <= 29 ~ "18-29",
             ppage <= 44 ~ "30-44",
@@ -39,8 +39,8 @@ survey_data <- survey_data %>%
            ppgender == "Male" ~ "male",
            TRUE ~ as.character(ppgender)),
          vote_biden = case_when(
-           Q1_2 == "Favorable" ~ 1,
-           Q1_2 == "Unfavorable" ~ 0)) %>%
+           Q1_1 == "Favorable" ~ 0,
+           Q1_1 == "Unfavorable" ~ 1)) %>%
   select(age, education, income, state, sex, vote_biden) 
 
 # Clean and preprocess poststratification data

@@ -171,11 +171,11 @@ general_data <- survey_data %>%
   mutate(prop = n / sum(n))
 
 #### Save all tables ####
-# write.csv(state_vote_for_biden, file = "data/poststratified/state_vote_for_biden.csv", row.names = FALSE)
-# 
-# write.csv(age_vote_for_biden, file = "data/poststratified/age_vote_for_biden.csv", row.names = FALSE)
-# 
-# write.csv(sex_vote_for_biden, file = "data/poststratified/sex_vote_for_biden.csv", row.names = FALSE)
-# 
-# write.csv(general_data, file = "data/poststratified/general_vote_for_biden.csv", row.names = FALSE)
+write.csv(state_vote_for_biden, file = "data/poststratified/state_vote_for_biden.csv", row.names = FALSE)
+
+write.csv(age_vote_for_biden, file = "data/poststratified/age_vote_for_biden.csv", row.names = FALSE)
+
+write.csv(sex_vote_for_biden, file = "data/poststratified/sex_vote_for_biden.csv", row.names = FALSE)
+
+write.csv(general_data, file = "data/poststratified/general_vote_for_biden.csv", row.names = FALSE)
 

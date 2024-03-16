@@ -129,7 +129,7 @@ ggplot(survey_data, aes(x = as.factor(vote_biden))) +
   scale_x_discrete(labels = c("Vote for Trump", "Vote for Biden"))
 ```
 
-@vote-biden shows the distribution of vote count distribution our survey data. We see that 
+@vote-biden shows the distribution of vote count in our survey data. We see that the survey panelists are heavily in favor of Joe Biden with a over twice of the panelists not favoring Trump. The bias can be a potential weakness of the dataset and we aim to uncover the factors influencing these political preferences.
 
 ```{r}
 #| echo: false
@@ -210,6 +210,7 @@ ggplot(state_proportions, aes(x = state, y = proportion, color = as.factor(vote_
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
+@fig-variables shows the vote proportion distribution for our chosen variables of interests. We notice a noticeable difference in the proportions that favor Trump or Biden. Some striking trends we notice in our survey data are more male panelists supporting Trump, majority of Trump supporters being in the 45-59 age group and Trump support declining with increase in education levels. While most states seem to support Trump, we see that some states support Trump over Biden. This is a fresh change to see over all other factors showing a clear preference for Biden in all categories.
 
 ## Post-stratification Data
 
@@ -275,7 +276,7 @@ ggplot(combined_data, aes(sex)) +
   geom_point(aes(y = census_prop, color = "Census data"), size = 3) +
   geom_point(aes(y = sur_prop, color = "Survey data"), size = 3) +
   scale_color_manual(values = c("Census data" = "salmon", "Survey data" = "skyblue")) +
-  labs(title = "Sexs",
+  labs(title = "Sex",
        x = "Sex",
        y = "Proportion") +
   theme_minimal()
@@ -360,6 +361,7 @@ ggplot(combined_data, aes(state)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ```
+@fig-proportions show a comparison of the survey and census data proportions. We notice that for all the variables of interest, the survey is not entirely representative of the population. For example, we see that females are underrepresented in the survey with the survey having about 49% females whereas the census shows 51% females. We also see how population with highest education attained being high school are under-represented whereas population with highest education attained being more than high school are over-representated. Difference in proportions like these can be seen in all the variables of interests and this is why post-stratifying is important to ensure precision and better representation of the population. 
 
 # Model
 We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
@@ -447,15 +449,12 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
 
 ```
 In @fig-support-state we see the percentage of the votes for Biden/Democratic party. This graph uses the data we
-collected after the post-stratification. Here, the red dots on the graph represent the voting percentage and the red
-lines are the error bars. The black vertical line with dashes indicates the line of proportion. Here, it is the equal
-split between support for Biden and support for the opposing candidate, Trump.
+collected after the post-stratification. Here, the red dots on the graph represent the voting percentage and the red lines are the error bars. The black vertical line with dashes indicates the line of proportion. Here, it is the equal split between support for Biden and support for the opposing candidate, Trump.
 
 The states that have points to the left of the black vertical line are the states voting for Trump,
 and the states on the right are voting for Biden. We see that the majority of the votes for the democratic party
 are found from the Northeast,Midwest  and the West Coast states. For example, the difference in votes for Biden
-between Oklahoma and New Mexico is more than 50%, but states like Oregon and Maine are neutral in terms of voting
-for either parties.
+between Oklahoma and New Mexico is more than 50%, but states like Oregon and Maine are neutral in terms of voting for either parties.
 
 ```{r}
 #| echo: false
@@ -472,14 +471,7 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
 
 ```
 
-In @fig-support-age, we used the data to find the proportion of the voters categorized by age, who would vote for the
-Democratic party. We found a pattern that the group of youngest voters and the group of the senior citizen votes are
-more likely to vote for the Democratic Party(Biden).
-
-We see that 45% of the individuals from age group 18-29 are voting
-for biden as well as 50% of the individuals from the age group of 60+ years. Meanwhile, only 35% of people in the age
-group of 45-59 are voting for Biden. Hence, in this graph we see the trend that people of ages from 30-59 are less likely
-to vote for the democratic party.
+In @fig-support-age, we used the data to find the proportion of the voters categorized by age, who would vote for the Democratic party. We see that the younger generation are more likely to vote for Biden compared to the older. Americans under the age of 45 are 70% likely to vote for Trump. The support for Trump drops to around 60% in the 45-59 age group. While this is favorable towards Biden, it does indicate that more people between 45 to 59 years are likely to vote for Trump compared to other age groups.
 
 ```{r}
 #| echo: false
@@ -495,10 +487,7 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
        x = "Sex groups")
 
 ```
-
-@fig-support-sex shows the proportion of Female voters that would vote for the Democratic Party as compared to the Male
-voters. We see more than 10% difference in the proportion. Here, we see that Women are 10% more likely to vote for Biden.
-While only 40% of the men in US would vote for Biden, more than 50% of women would vote for the Biden.
+@fig-support-sex shows the proportion of Female voters that would vote for the Democratic Party as compared to the Male voters. We see a 10% difference in the proportion where women are 10% more likely to vote for Biden.
 
 ```{r}
 #| echo: false
@@ -522,12 +511,7 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
 
 ```
 
-@fig-support-general looks at the division of voters for each party. The sample here is all the individuals who took
-the survey and what the proportions are in general population of the United States. We see that more than 50% of the
-population would vote for Biden and the rest would vote for Trump. This graph clearly shows the
-conclusion we can deduce from our research that with this survey done in 2022, it is clear that the population of the
-United States is inclined towards the Democratic Party.
-
+@fig-support-general looks at the division of voters for each party as an overall. We see that even after applying post-stratification, the preference has only changed by a negligible amount with a large majority of the population likely to vote for Trump. This graph clearly shows the conclusion we can deduce from our research that it is clear that the population of the United States is more inclined towards the Democratic Party.
 
 # Discussion
 

@@ -6,7 +6,7 @@ The study investigates the dynamics of voting behaviour of Americans leveraging 
 To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
 
 ## Raw data
-To obtain the raw data for this file, follow the instructions in data.txt in `data/raw_data`
+To obtain the raw data for this file, follow the instructions in instructions.md in `data/raw_data`
 
 ## File Structure
 The repo is structured as:

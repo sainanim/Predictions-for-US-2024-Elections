@@ -81,7 +81,7 @@ For this analysis, we have used two datasets. The datasets were cleaned and anal
 
 ## Survey Data
 
-Our survey data is from the Ipsos Poll [Roper #31120637]. It was collated from a web-based survey conducted on November 3 - 4, 2023 using KnowledgePanel. The survey is conducted by Ipsos and the sponsor is ABC News. This poll is based on a nationally representative probability sample of 949 adults aged 18 or older with oversamples among Black and Hispanic respondents. The poll is a collection of demographic information and political preferences.
+Our survey data is from the Ipsos Poll [Roper #31120637]. It was collated from a web-based survey conducted on November 3 - 4, 2023 using KnowledgePanel. The survey is conducted by Ipsos and the sponsor is ABC News. This poll is based on a nationally representative probability sample of 949 adults aged 18 or older with oversamples among Black and Hispanic respondents. The poll is a collection of demographic information and political preferences [@citeIpsos].
 
 A person becomes an entry in this dataset if they were 18 years or older on November 3-4, 2023, an American national and participated in this poll. They are recruited through a scientifically developed addressed-based sampling methodology using the latest Delivery Sequence File of the USPS – a database with full coverage of all delivery points in the US. Households invited to join the panel are randomly selected from all available households in the US. People in the sampled households are invited to join and participate in the panel. Those selected who do not already have internet access are provided a tablet and internet connection at no cost to the panel member. Those who join the panel and who are selected to participate in a survey are sent a unique password-protected log-in used to complete surveys online. Panelists receive a unique login to the survey and are only able to complete it one time. No reminder emails were sent for this study. 
 
@@ -199,9 +199,9 @@ ggplot(state_proportions, aes(x = state, y = proportion, color = as.factor(vote_
 
 \newpage
 
-## Post-stratification Data
+## Post-Stratification Data
 
-Our post-stratification data is from the most recent American Community Survey (ACS), the 2022 Sample. We use this to represent the voter population and adjust the weight of the survey data. The population for this sample was the entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected. ACS 2022 dataset consists of 3,373,378 observations. Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic, socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in both home and group quarters, offering a comprehensive view of the American population. A person becomes an entry in this dataset if they are a part of the sampled subgroups and have responded to the survey.
+Our post-stratification data is from the most recent annual American Community Survey (ACS), the 2022 sample, available through IPUMS USA [@citeACS]. We use this to represent the voter population and adjust the weight of the survey data. The population for this sample was the entire US population, categorized into households as subgroups, and the responses of the sampled subgroups were collected. ACS 2022 dataset consists of 3,373,378 observations. Using a 1-in-100 national random sample, the ACS 2022 sample provides a thorough overview of the demographic, socioeconomic, and geographic features of the US population. Most importantly, this dataset includes people who live in both home and group quarters, offering a comprehensive view of the American population. A person becomes an entry in this dataset if they are a part of the sampled subgroups and have responded to the survey.
 
 There are a large number of different features available and the variables we chose are age, income, education, state and sex to match with the variables from our survey. These variables were cleaned and the dataset was preprocessed so the values and categories match with the survey dataset. 
 
@@ -403,7 +403,7 @@ coefficients |> kable(digits = 2)
 ```
 @tbl-model-coefficients shows the coefficients for our model that can be used in the equation along with the standard error and the 95% confidence interval. The standard error (SE) is a measure of the precision with which a sample statistic estimates a population parameter. It quantifies the variability of sample statistics around the population parameter. A 95% confidence interval means that if you were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean.
 
-After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US Presidential Elections. Post-stratification is a statistical technique employed to refine survey estimates by aligning them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of the entire population. 
+After we created the model, we then post-stratify these proportions and to conclude who we predict to win the 2024 US Presidential Elections. Post-Stratification is a statistical technique employed to refine survey estimates by aligning them with known population characteristics. It helps us ensure that our findings accurately represent the diversity of the entire population. 
 
 In this process, we first the organize the survey data based on the demographic factors we decided to investigate. This involved counting individuals in each group to understand the sample distribution and computing proportions to depict the relative contribution of each demographic group to the overall survey sample.
 
@@ -456,8 +456,7 @@ Rhode Island is almost 75% more likely to vote for Trump, but in competition, mo
 
 ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
   geom_col(fill = "purple") +
-  labs(title = "Proportions of Votes for Biden by age group",
-       y = "Proportion of Votes",
+  labs(y = "Proportion of Votes",
        x = "Age groups")
 
 ```
@@ -473,8 +472,7 @@ In @fig-support-age, we see the proportion of the voters who would vote for the 
 
 ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
   geom_col(fill = "red") +
-  labs(title = "Proportions of Votes for Biden by sex",
-       y = "Proportion of Votes",
+  labs(y = "Proportion of Votes",
        x = "Sex groups")
 
 ```
@@ -495,8 +493,7 @@ general_data <- survey_data %>%
 
 ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
   geom_col(fill = "blue") +
-  labs(title = "Proportions of Votes",
-       y = "Proportion",
+  labs(y = "Proportion",
        x = "Vote") +
   scale_x_discrete(labels = c("Vote for Trump", "Vote for Biden"))
 
@@ -546,7 +543,7 @@ Additionally, the survey data does not contain any participants from the state o
 
 Consequently, these issues could lead to inaccuracies in our predictions and limit the generalizability of our findings to the broader population. 
 
-For our poststratification dataset from ACS, there was no dataset available from 2023. Our poststratification data relied on the survey that was conducted in 2022, and Americans' viewpoints on their choices for political parties may have changed in a year. 
+For our post-stratification dataset from ACS, there was no dataset available from 2023. Our post-stratification data relied on the survey that was conducted in 2022, and Americans' viewpoints on their choices for political parties may have changed in a year. 
 
 Additionally, the education variable from ACS had a vague description and only provided a certain level of education. The levels that were provided in the dataset were ranging from Grade 5 to 5+ years of college. This led to our education levels to be not very diverse but restricted to three major categories: Less than High School, High School and More than High School.
 
@@ -569,17 +566,17 @@ For the survey dataset, the cleaning steps we took were:
 
 3. Respondents' income information (ppinc7) was retained in its original format to provide insights into income distribution. The final column was named income.
 
-4. Education levels were standardized to facilitate analysis. Respondents' education information (ppeducat) was categorized into three groups: "High school", "More than high school" (including "Bachelor's degree or higher" and "Some college"), and "Less than high school". This was done to match the education level separation available in the poststratification dataset. The final column was named education. 
+4. Education levels were standardized to facilitate analysis. Respondents' education information (ppeducat) was categorized into three groups: "High school", "More than high school" (including "Bachelor's degree or higher" and "Some college"), and "Less than high school". This was done to match the education level separation available in the post-stratification dataset. The final column was named education. 
 
 5. The state of residence for each participant (ppstaten) was preserved for regional analysis. The final column was named state.
 
-6. Gender information (ppgender) was just had a change of turning the value to lower case. The final column was named sex as just having these two criterias implies that and to maintain with the poststratification data reporting sex as well.
+6. Gender information (ppgender) was just had a change of turning the value to lower case. The final column was named sex as just having these two criterias implies that and to maintain with the post-stratification data reporting sex as well.
 
 7. We created a binary variable for favorability of Biden. Responses from Q1_1 labeled as "Favorable" were coded as 0, while responses labeled as "Unfavorable" were coded as 1. The final column was named vote_biden.
 
 8. The final survey dataset contained the above mentioned 6 columns: age, education, income, state, sex, and the coded variable for Biden vote.
 
-For the poststratification dataset, the cleaning steps we took were:
+For the post-stratification dataset, the cleaning steps we took were:
 
 1. Initially, the "AGE" variable was converted to numeric format. Subsequently, data points were filtered to retain only those individuals aged 18 and above, excluding individuals from Vermont and Montana and cases where total household income (FTOTINC) was recorded as less than zero. Individuals from Vermont and Montana were excluded from the dataset to maintain consistency with the survey data as the survey data does not involve any records from these two states.
 
@@ -593,34 +590,40 @@ For the poststratification dataset, the cleaning steps we took were:
 
 6. Household income (FTOTINC) was categorized into the same division of income brackets as the survey data: Less than $10,000, $10,000 to $24,999, $25,000 to $49,999, $50,000 to $74,999, $75,000 to $99,999, $100,000 to $149,999 and $150,000 or more. The final column was named income.
 
-7. The final poststratification dataset contained the above mentioned 5 columns: age, education, income, state and sex.
+7. The final post-stratification dataset contained the above mentioned 5 columns: age, education, income, state and sex.
 
 Now we are ensured that both the datasets have the same variable names and respective categories.
 
 \newpage
 
 ## Survey dataset
-Here is a glimpse of the survey data set used
+Here is a glimpse of the survey dataset used
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
-
+#| label: tbl-survey
+#| tbl-cap: Cleaned survey dataset
+#| 
 head(survey_data)  %>%
   kable(digits = 2)
 
 ```
 
-## Poststratification dataset
-Here is a glimpse of the poststratification data set used
+## Post-Stratification dataset
+Here is a glimpse of the post-stratification data set used
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
+#| label: tbl-post-stratification
+#| tbl-cap: Cleaned post-stratification dataset
 
 head(poststrat_data)  %>%
   kable(digits = 2)
 ```
+
+\newpage
 
 # References

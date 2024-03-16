@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Multilinear logistic regression model
+# Purpose: Bayesian logistic regression model
 # Author: Kaavya Kalani, Monica Sainani
 # Date: 11 March 2024
 # Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca

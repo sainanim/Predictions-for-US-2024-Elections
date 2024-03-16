@@ -1,13 +1,13 @@
 ---
 title: "Biden Projected to Win the 2024 US Presidential Elections"
-subtitle: "Analysis using data from American Community Survey 2022 and Ipsos Poll 2023 levereging Bayesian Logistic Regression with Post-Stratification"
+subtitle: "Analysis using data from American Community Survey 2022 and Ipsos Poll 2023 leveraging Bayesian Logistic Regression with Post-Stratification"
 author:
   - Monica Sainani
   - Kaavya Kalani
 thanks: "Code and data supporting this analysis is available at: https://github.com/sainanim/Predictions-for-the-US-2024-Elections"
 date: today
 date-format: long
-abstract: "We analyze American voting behavior, focusing on demographic, socioeconomic, and geographic factors. We use a Bayesian Logistic Regression model with Post-Stratification to predict the election outcome between Biden and Trump. We find a strong relationship between age, family income, education, state of residency, sex and likely voting outcome. Our central forecast is a Biden re-election. This research provides insights into the factors affecting political engagement in the U.S., potentially guiding future electoral strategies and policy discussions."
+abstract: "We analyze American voting behavior, focusing on demographic, socioeconomic, and geographic factors. A Bayesian Logistic Regression model with Post-Stratification is used to predict the election outcome between Biden and Trump. We find a strong relationship between age, family income, education, state of residency, sex and likely voting outcome. Our central forecast is a Biden re-election. This research provides insights into the factors affecting political engagement in the U.S., potentially guiding future electoral strategies and policy discussions."
 format: pdf
 number-sections: true
 toc: true
@@ -67,7 +67,7 @@ Our estimand is the relationship between demographic, socio-economic, and geogra
 
 We use the survey data from the Ipsos Poll [Roper #31120637] along with census data from the American Community Survey (ACS) 2022 sample to understand voting preferences and predict the US 2024 Presidential Elections winner. This is done by leveraging a Bayesian Logistic Regression model with our survey data, which is then post-stratified with our census data. We evaluate voting preferences over some demographic, socioeconomic, and geographic aspects across the nation and then make a final prediction.
 
-Our analysis led to us finding that overall, the younger generations, females and people of the midwest and southern states are highly supportive of the Democratic Party led by Biden. Our overall forecast is a Joe Biden re-election in the 2024 US Presidential Elections.
+Our analysis led to us finding that overall, the younger generations, females, and people of the Midwest and southern states are highly supportive of the Democratic Party led by Biden. Our overall forecast is a Joe Biden re-election in the 2024 US Presidential Elections.
 
 Our research adds to a greater understanding of the factors influencing voting decisions through comprehensive statistical analysis, yielding insightful data that may influence future election campaigns and policy discussions. Through highlighting the subtleties of voting patterns, our research provides a critical insight on the condition of American democracy and the factors motivating involvement in politics and engagement.
 
@@ -81,7 +81,7 @@ For this analysis, we have used two datasets. The datasets were cleaned and anal
 
 ## Survey Data
 
-Our survey data is from the Ipsos Poll [Roper #31120637]. It was collated from a web-based survey conducted on November 3 - 4, 2023 using KnowledgePanel. The survey is conducted by Ipsos and the sponsor is ABC News. This poll is based on a nationally representative probability sample of 949 adults age 18 or older with oversamples among Black and Hispanic respondents. The poll is a collection of demographic information and political preferences.
+Our survey data is from the Ipsos Poll [Roper #31120637]. It was collated from a web-based survey conducted on November 3 - 4, 2023 using KnowledgePanel. The survey is conducted by Ipsos and the sponsor is ABC News. This poll is based on a nationally representative probability sample of 949 adults aged 18 or older with oversamples among Black and Hispanic respondents. The poll is a collection of demographic information and political preferences.
 
 A person becomes an entry in this dataset if they were 18 years or older on November 3-4, 2023, an American national and participated in this poll. They are recruited through a scientifically developed addressed-based sampling methodology using the latest Delivery Sequence File of the USPS – a database with full coverage of all delivery points in the US. Households invited to join the panel are randomly selected from all available households in the US. People in the sampled households are invited to join and participate in the panel. Those selected who do not already have internet access are provided a tablet and internet connection at no cost to the panel member. Those who join the panel and who are selected to participate in a survey are sent a unique password-protected log-in used to complete surveys online. Panelists receive a unique login to the survey and are only able to complete it one time. No reminder emails were sent for this study. 
 
@@ -91,13 +91,13 @@ The results from this dataset are used for our model. Among the range of variabl
 
 - Income is the annual household income reported by the panelist. They were given the option of seven categories: Less than $10,000, $10,000 to $24,999, $25,000 to $49,999, $50,000 to $74,999, $75,000 to $99,999, $100,000 to $149,999 and $150,000 or more.
 
-- Education is the highest level of education attained by the panelist. They were given the option between: Less than high school, High school, Some college and Bachelor's degree or higher. We then classified these into three categories:  Less than high school, High school,  More than high school
+- Education is the highest level of education attained by the panelist. They were given the option between: Less than high school, High school, Some college and Bachelor's degree or higher. We then classified these into three categories:  Less than high school, High school,  More than high school.
 
 - State is the state of residence of the panelist.
 
-- Sex is the sex reported by the panelist and it is either male or female
+- Sex is the sex reported by the panelist and it is either male or female.
 
-For the variable we are predicting, we created a binary variable which is 1 if the panelist favors Biden and 0 if the panelist favors Trump. There was no question in the poll which asked this direct question so we used “Overall, do you have a favorable or unfavorable impression of...Donald Trump?”. We acknowledge that not favoring Donald Trump does not necessarily imply favoring Joe Biden, but since they are the two major potential candidates, we classify the panelists who chose “Unfavorable” as supporting Biden, i.e not supporting Trump.
+For the variable we are predicting, we created a binary variable which is 1 if the panelist favors Biden and 0 if the panelist favors Trump. There was no question in the poll which asked this direct question so we used “Overall, do you have a favorable or unfavorable impression of...Donald Trump?”. We acknowledge that not favoring Donald Trump does not necessarily imply favoring Joe Biden, but since they are the two major potential candidates, we classify the panelists who chose “Unfavorable” as supporting Biden, i.e. not supporting Trump.
 
 
 ```{r}
@@ -114,7 +114,7 @@ ggplot(survey_data, aes(x = as.factor(vote_biden))) +
   scale_x_discrete(labels = c("Vote for Trump", "Vote for Biden"))
 ```
 
-@fig-vote-biden shows the distribution of vote count in our survey data. We see that the survey panelists are heavily in favor of Joe Biden with a over twice of the panelists not favoring Trump. The bias can be a potential weakness of the dataset and we aim to uncover the factors influencing these political preferences.
+@fig-vote-biden shows the distribution of vote count in our survey data. We see that the survey panelists are heavily in favor of Joe Biden with over twice the panelists not favoring Trump. The bias can be a potential weakness of the dataset and we aim to uncover the factors influencing these political preferences.
 
 ```{r}
 #| echo: false
@@ -193,9 +193,11 @@ ggplot(state_proportions, aes(x = state, y = proportion, color = as.factor(vote_
   labs(x = "State", y = "Proportion", color = "Vote") +
   scale_color_manual(values = c("blue", "red"), labels = c("Vote for Trump", "Vote for Biden")) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6, margin = margin(0, 10, 0, 10)))
 ```
-@fig-variables shows the vote proportion distribution for our chosen variables of interests. We notice a noticeable difference in the proportions that favor Trump or Biden. Some striking trends we notice in our survey data are more male panelists supporting Trump, majority of Trump supporters being in the 45-59 age group and Trump support declining with increase in education levels. While most states seem to support Trump, we see that some states support Trump over Biden. This is a fresh change to see over all other factors showing a clear preference for Biden in all categories.
+@fig-variables shows the vote proportion distribution for our chosen variables of interests. We notice a noticeable difference in the proportions that favor Trump or Biden. Some striking trends we notice in our survey data are more male panelists supporting Trump, majority of Trump supporters being in the 45-59 age group and Trump support declining with increase in education levels. While most states seem to support Biden, we see that some states support Trump over Biden. This is a fresh change to see over all other factors showing a clear preference for Biden in all categories.
+
+\newpage
 
 ## Post-stratification Data
 
@@ -343,10 +345,12 @@ ggplot(combined_data, aes(state)) +
        x = "State",
        y = "Proportion") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6, margin = margin(0, 10, 0, 10))) 
 
 ```
-@fig-proportions show a comparison of the survey and census data proportions. We notice that for all the variables of interest, the survey is not entirely representative of the population. For example, we see that females are underrepresented in the survey with the survey having about 49% females whereas the census shows 51% females. We also see how population with highest education attained being high school are under-represented whereas population with highest education attained being more than high school are over-representated. Difference in proportions like these can be seen in all the variables of interests and this is why post-stratifying is important to ensure precision and better representation of the population. 
+@fig-proportions show a comparison of the survey and census data proportions. We notice that for all the variables of interest, the survey is not entirely representative of the population. For example, we see that females are underrepresented in the survey with the survey having about 49% females whereas the census shows 51% females. We also see how population with highest education attained being high school are under-represented whereas population with highest education attained being more than high school are over-represented. Difference in proportions like these can be seen in all the variables of interests and this is why post-stratifying is important to ensure precision and better representation of the population. 
+
+\newpage
 
 # Model
 We used a Bayesian Logistic Regression model with Post-Stratification to predict the 2024 US Presidential Elections. Logistic regression is a method used for binary classification to predict the probability of a categorical dependent variable. 
@@ -355,7 +359,7 @@ For our analysis, a logistic regression model will be first used to model the pr
 
 The logistic regression model we will be using is:
 \begin{equation}
-\log\left(\frac{\hat{p}}{1 - \hat{p}}\right) = \beta_0 + \beta_1 \times \text{state} + \beta_2 \times \text{sex} + \beta_3 \times \text{age} + \beta_4 \times \text{education} + \beta_5 \times \text{income} \label{eq:model1}
+\log\left(\frac{\hat{p}}{1 - \hat{p}}\right) = \beta_0 + \beta_1 \times \text{state} + \beta_2 \times \text{sex} + \beta_3 \times \text{age} + \beta_4 \times \text{education} + \beta_5 \times \text{income}
 \end{equation}
 
 $$
@@ -431,7 +435,7 @@ ggplot(state_vote_for_biden, aes(y = biden_predict, x = reorder(state, -biden_pr
   scale_color_brewer(palette = "Set1") +
   coord_flip() +
   theme(legend.position = "bottom") +
-  theme(axis.text.y = element_text(size = 4, margin = margin(0, 10, 0, 10))) # Adjust size of y-axis text
+  theme(axis.text.y = element_text(size = 5, margin = margin(0, 10, 0, 10))) 
 
 ```
 In @fig-support-state we see the percentage of the votes for Biden/Democratic party. This graph uses the data we
@@ -439,8 +443,8 @@ collected after the post-stratification. Here, the red dots on the graph represe
 
 The states that have points to the left of the black vertical line are the states voting for Trump,
 and the states on the right are voting for Biden. We see that the majority of the votes for the democratic party
-are found from the Midwest  and the Southern states while only Rhode Island, Oklahoma, Missouri and Nevada are inclined to vote for Trump.
-Rhode Island is almost 75% more likely to vote for Trump, but in competition most of of Alaska, Hawaii, North Dakota, New Mexico and Kansas are inclined to vote for Biden.
+are found from the Midwest and the southern states while only Rhode Island, Oklahoma, Missouri and Nevada are inclined to vote for Trump.
+Rhode Island is almost 75% more likely to vote for Trump, but in competition, most of Alaska, Hawaii, North Dakota, New Mexico and Kansas are inclined to vote for Biden.
 
 
 ```{r}
@@ -458,7 +462,7 @@ ggplot(age_vote_for_biden, aes(x = age, y = biden_predict)) +
 
 ```
 
-In @fig-support-age, we used the data to find the proportion of the voters categorized by age, who would vote for the Democratic party. We see that the younger generation are more likely to vote for Biden compared to the older. Americans under the age of 45 are 70% likely to vote for Trump. The support for Trump drops to around 60% in the 45-59 age group. While this is favorable towards Biden, it does indicate that more people between 45 to 59 years are likely to vote for Trump compared to other age groups.
+In @fig-support-age, we see the proportion of the voters who would vote for the Democratic party categorized by age. We see that the younger generation are more likely to vote for Biden compared to the older. Americans under the age of 45 are 70% likely to vote for Trump. The support for Trump drops to around 60% in the 45-59 age group. While this is favorable towards Biden, it does indicate that more people between 45 to 59 years are likely to vote for Trump compared to other age groups.
 
 ```{r}
 #| echo: false
@@ -474,7 +478,7 @@ ggplot(sex_vote_for_biden, aes(x = sex, y = biden_predict)) +
        x = "Sex groups")
 
 ```
-@fig-support-sex shows the proportion of Female voters that would vote for the Democratic Party as compared to the Male voters. We see a 10% difference in the proportion where women are 10% more likely to vote for Biden.
+@fig-support-sex shows the proportion of female voters that would vote for the Democratic Party as compared to the male voters. We see a 10% difference in the proportion where women are 10% more likely to vote for Biden.
 
 ```{r}
 #| echo: false
@@ -498,23 +502,20 @@ ggplot(general_data, aes(x = as.factor(vote_biden), y = prop)) +
 
 ```
 
-@fig-support-general looks at the division of voters for each party as an overall. We see that even after applying post-stratification, the preference has only changed by a negligible amount with a large majority of the population likely to vote for Trump. This graph clearly shows the conclusion we can deduce from our research that it is clear that the population of the United States is more inclined towards the Democratic Party.
-
-
+@fig-support-general looks at the division of voters for each party as an overall. We see that even after applying post-stratification, the preference has only changed by a negligible amount with a large majority of the population likely to vote for Biden. This graph clearly shows the conclusion we can deduce from our research, the population of the United States is more inclined towards the Democratic Party.
 
 # Discussion
 Our analysis modeled the variables of interest from the survey data, followed by post-stratification focusing on key variables. We plotted the trends for the post-stratified voting preferences by age, state, and sex. These visualizations yielded valuable insights into voter behavior. Notably, our findings indicated an inclination within the population towards voting for Biden from the Democratic Party.
 
 ## Political preference trends in different states 
-In the graph, @fig-support-state, we notice that all states in the U.S. other than Rhode Island, Missouri, Oklahoma and Nevada are more inclined to vote for the Democratic Party. We see that as we go towards the Midwest and Southern Regions, the support for Biden increases as more than 50% of the state is likely to vote for them. This is similar to the findings in [@James_2016] that address the same prediction for 2024. Our model and the article predict that states that support Trump are from the middle and Midwest parts of the US, whereas coastal states and the Northeast tend to vote for Biden.
+In the graph, @fig-support-state, we notice that all states in the U.S. other than Rhode Island, Missouri, Oklahoma and Nevada are more inclined to vote for the Democratic Party. We see that as we go towards the Midwest and southern regions, the support for Biden increases as more than 50% of the state is likely to vote for them. This is similar to the findings in [@James_2016] that address the same prediction for 2024. Our model and the article predict that states that support Trump are from the middle and Midwest parts of the US, whereas coastal states and the Northeast tend to vote for Biden.
 
-Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like manufacturing and agriculture have defined the middle and Midwest regions of the United States. These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states, which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically
-tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform, which Biden advocated.
+Historically, rural, conservative-leaning towns with strong cultural ties to traditional values and industries like manufacturing and agriculture have defined the middle and Midwest regions of the United States. These areas frequently support gun rights, minimal government intrusion, and religious liberty—issues that are strongly aligned with the agenda of the Republican Party, which Trump advocated. In contrast, the Northeast and coastline states, which are renowned for their progressive views on culture, urban facilities, and diverse populations, have historically tended toward more liberal policies and social ideals that are more in line with the Democratic Party platform, which Biden advocated.
 
 ## Political preference trends in different age groups and sex categories
 @fig-support-age showcases different age groups and what their voting preferences are. We noticed that the youngest group of voters (age 18-29) and mid-age adults (30-44) are more than 70% inclined to vote for Biden. The emphasis on social justice and LGBTQ+ rights among the younger generation may be the cause of this difference. The democratic party led by Biden prioritizes these issues and speaks for the justice of the minorities [@Brownstein_2023]. Since there are more young people who identify as sexual minorities and they make up 10% of the U.S. population [@Meyer_2024], there is a trend for them to support Biden and the Democratic Party.
 
-The middle-aged generation i.e individuals of age group from 30-44 years old were inclined to voting for Biden as well. Middle-aged voters may align more closely with Biden's policy proposals on issues such as healthcare, economic recovery, climate change, and social justice [@Igielnik_2021] .
+The middle-aged generation i.e. individuals of age group from 30-44 years old were inclined to voting for Biden as well. Middle-aged voters may align more closely with Biden's policy proposals on issues such as healthcare, economic recovery, climate change, and social justice [@Igielnik_2021].
 
 Additionally, we notice almost a 10% decline in the votes for Biden from older age groups (45+ years old). The National security and conservative principles, which are frequently connected to the Republican Party, may have an impact on the elder generation.
 
@@ -523,14 +524,39 @@ Additionally, we notice almost a 10% decline in the votes for Biden from older a
 ## General conclusion
 @fig-support-general shows that in general the population of the United States is a lot more inclined to vote for Biden. We see a drastic difference in opinion of almost 40% i.e. people are 40% more likely to vote for Biden than vote for Trump. This conclusion highlighted the final prediction from our analysis. Furthermore, it sheds light on the prevailing social values and the direction individuals envision for their society. Some of the key issues that Americans wanted to see change were the healthcare reforms, climate change actions and racial justice and social equity. They wanted better national response to the COVID-19 pandemic, more ambitious climate policies and investments in renewable energy and lastly, a demand for reforms addressing systemic racism and criminal justice [@Brownstein_2023].
 
-## Contributions to Knowledge:
+## Contributions to Knowledge
 
 By focusing our analysis on specific demographic variables, we contributed to a deeper understanding of the underlying determinants shaping electoral outcomes. Our study corroborates existing literature suggesting that demographic factors such as age, income, education, and geographic location play pivotal roles in influencing voter preferences [@Gelman].
 
 The utilization of post-stratification techniques in our analysis allowed for a more granular examination of voting behavior, offering insights into the heterogeneity of voter sentiment across different demographic groups.
 
-Lastly, it highlights the high support of the Democratic Party led by Biden from the younger generations, females and people of the midwest and southern states.
+Lastly, it highlights the high support of the Democratic Party led by Biden from the younger generations, females, and people of the Midwest and southern states.
 
+## Weaknesses and Limitations
+
+While our analysis provides valuable insights into voter behavior, it is important to acknowledge several limitations.
+
+Firstly, our reliance on survey data from the Ipsos 2023 Poll introduces a sampling bias, as the sample does not fully represent the entire US population. 
+
+On analyzing the counts in the dataset, we see that some of the states have a count of 1 or 2 records in the dataset. For example, the District of Columbia and Wyoming, both have one record each in the dataset. While these states are not very populated so it is a given that the representation will be lesser, having only one representative leads to a very biased preference from that state. The political preference of the state will be considered as being what that one person’s preference is. 
+
+If we consider Alaska which has 2 votes, both the representatives from there are supportive of Biden leading to the biased conclusion that Alaska is highly supportive of the Democratic Party. This is a contradiction to the fact that Alaska is considered a state which is highly of the Republican Party [@Wikipedia_RedBlue]. 
+
+Additionally, the survey data does not contain any participants from the state of Vermont and Montana. While these states are not very populated [@Wikipedia_2024], their opinions are still important to accurately analyze the preference splits throughout the country.
+
+Consequently, these issues could lead to inaccuracies in our predictions and limit the generalizability of our findings to the broader population. 
+
+For our poststratification dataset from ACS, there was no dataset available from 2023. Our poststratification data relied on the survey that was conducted in 2022, and Americans' viewpoints on their choices for political parties may have changed in a year. 
+
+Additionally, the education variable from ACS had a vague description and only provided a certain level of education. The levels that were provided in the dataset were ranging from Grade 5 to 5+ years of college. This led to our education levels to be not very diverse but restricted to three major categories: Less than High School, High School and More than High School.
+
+Lastly, while we focused on key demographic variables, other influential variables such as political ideology and campaign messaging were not fully accounted for in our model. Political parties use various data from the population such as media trends and ongoing cultural differences in the society. They also use micro-targeted political ads to voters on social media and online platforms [@Funakoshi_2020]. This means that our research has the inaccuracy of consideration of incomplete variable sets.
+
+## Future Directions
+
+Moving forward, further research is needed to address the limitations identified in our study and data to advance our understanding of electoral dynamics. Future studies could explore the integration of additional data sources, such as social media sentiment analysis and polling data, to enhance the accuracy of election predictions. 
+
+Moreover, there are new strategies opted by political parties in every election that are facilitated by new technologies. Exploring the role of media exposure, including news sources, social media platforms, and political messaging, in shaping citizens' attitudes, expectations, and priorities is something that should be considered in shaping the opinions of Americans.
 
 # Appendix
 
@@ -543,7 +569,7 @@ For the survey dataset, the cleaning steps we took were:
 
 3. Respondents' income information (ppinc7) was retained in its original format to provide insights into income distribution. The final column was named income.
 
-4. Education levels were standardized to facilitate analysis. Respondents' education information (ppeducat) was categorized into three groups: "High school", "More than high school" (including "Bachelors degree or higher" and "Some college"), and "Less than high school". This was done to match the education level separation available in the poststratification dataset. The final column was named education. 
+4. Education levels were standardized to facilitate analysis. Respondents' education information (ppeducat) was categorized into three groups: "High school", "More than high school" (including "Bachelor's degree or higher" and "Some college"), and "Less than high school". This was done to match the education level separation available in the poststratification dataset. The final column was named education. 
 
 5. The state of residence for each participant (ppstaten) was preserved for regional analysis. The final column was named state.
 
@@ -571,6 +597,8 @@ For the poststratification dataset, the cleaning steps we took were:
 
 Now we are ensured that both the datasets have the same variable names and respective categories.
 
+\newpage
+
 ## Survey dataset
 Here is a glimpse of the survey data set used
 
@@ -579,7 +607,9 @@ Here is a glimpse of the survey data set used
 #| warning: false
 #| message: false
 
-head(survey_data)
+head(survey_data)  %>%
+  kable(digits = 2)
+
 ```
 
 ## Poststratification dataset
@@ -589,7 +619,8 @@ Here is a glimpse of the poststratification data set used
 #| warning: false
 #| message: false
 
-head(poststrat_data)
+head(poststrat_data)  %>%
+  kable(digits = 2)
 ```
 
 # References

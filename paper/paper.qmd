@@ -129,6 +129,7 @@ ggplot(survey_data, aes(x = as.factor(vote_biden))) +
   scale_x_discrete(labels = c("Vote for Trump", "Vote for Biden"))
 ```
 
+
 @fig-vote-biden shows the distribution of vote count in our survey data. We see that the survey panelists are heavily in favor of Joe Biden with a over twice of the panelists not favoring Trump. The bias can be a potential weakness of the dataset and we aim to uncover the factors influencing these political preferences.
 
 ```{r}

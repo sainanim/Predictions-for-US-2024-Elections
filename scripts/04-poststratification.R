@@ -1,29 +1,20 @@
 #### Preamble ####
 # Purpose: Poststratification for the model
 # Author: Kaavya Kalani, Monica Sainani
-# Date: 9 March 2024
+# Date: 13 March 2024
 # Contact: kaavya.kalani@mail.utoronto.ca, monica.sainani@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: Run 04-model.R
 
 
 #### Workspace setup ####
-
-library(gutenbergr)
-library(haven)
-library(knitr)
-library(labelled)
-library(modelsummary)
-library(rstanarm)
-library(tidybayes)
-library(broom.mixed)
-library(here)
+# install.packages("tidyverse")
 library(tidyverse)
 
-# read the datasets and model
-poststrat_data <- arrow::read_parquet(file = here("data/analysis_data/poststrat_data.parquet"))
-survey_data <- arrow::read_parquet(file = here("data/analysis_data/survey_data.parquet"))
-us_election_model <- readRDS(file = here("models/single_bay.rds"))
+# Read the datasets and model
+poststrat_data <- arrow::read_parquet("data/analysis_data/poststrat_data.parquet")
+survey_data <- arrow::read_parquet("data/analysis_data/survey_data.parquet")
+us_election_model <- readRDS("models/single_bay.rds")
 
 #### Post-stratification 1 (State) ####
 
@@ -180,11 +171,11 @@ general_data <- survey_data %>%
   mutate(prop = n / sum(n))
 
 #### Save all tables ####
-write.csv(state_vote_for_biden, file = "data/poststratified/state_vote_for_biden.csv", row.names = FALSE)
-
-write.csv(age_vote_for_biden, file = "data/poststratified/age_vote_for_biden.csv", row.names = FALSE)
-
-write.csv(sex_vote_for_biden, file = "data/poststratified/sex_vote_for_biden.csv", row.names = FALSE)
-
-write.csv(general_data, file = "data/poststratified/general_vote_for_biden.csv", row.names = FALSE)
+# write.csv(state_vote_for_biden, file = "data/poststratified/state_vote_for_biden.csv", row.names = FALSE)
+# 
+# write.csv(age_vote_for_biden, file = "data/poststratified/age_vote_for_biden.csv", row.names = FALSE)
+# 
+# write.csv(sex_vote_for_biden, file = "data/poststratified/sex_vote_for_biden.csv", row.names = FALSE)
+# 
+# write.csv(general_data, file = "data/poststratified/general_vote_for_biden.csv", row.names = FALSE)
 

@@ -19,28 +19,32 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-library(rstan)
+# install.packages("broom.mixed")
+# install.packages("tidyverse")
+# install.packages("arrow")
+# install.packages("dplyr")
+# install.packages("knitr")
+# install.packages("ggplot2")
+# install.packages("modelsummary")
+# install.packages("here")
+# install.packages("kableExtra")
+
+library(broom.mixed)
 library(tidyverse)
 library(arrow)
 library(dplyr)
 library(knitr)
 library(ggplot2)
-library(gutenbergr)
-library(haven)
-library(labelled)
 library(modelsummary)
-library(rstanarm)
-library(tidybayes)
-library(broom.mixed)
 library(here)
 library(kableExtra)
 
-# read the datasets and model
+# Read the datasets and model
 poststrat_data <- arrow::read_parquet(file = here("data/analysis_data/poststrat_data.parquet"))
 survey_data <- arrow::read_parquet(file = here("data/analysis_data/survey_data.parquet"))
 us_election_model <- readRDS(file = here("models/single_bay.rds"))
 
-
+# Read the post-stratified data
 state_vote_for_biden <- read.csv(here("data/poststratified/state_vote_for_biden.csv"))
 age_vote_for_biden <- read.csv(here("data/poststratified/age_vote_for_biden.csv"))
 sex_vote_for_biden <- read.csv(here("data/poststratified/sex_vote_for_biden.csv"))
@@ -88,7 +92,7 @@ the weaknesses of our analysis.
 
 # Data
 
-For this analysis, we have used two datasets. The datasets were cleaned and analysed using the statistical programming software R [@citeR] along with the help tidyverse [@citeTidyverse], knitr [@citeKnitr], ggplot2 [@citeGgplot], here [@citeHere], ADD MORE
+For this analysis, we have used two datasets. The datasets were cleaned and analysed using the statistical programming software R [@citeR] along with the help tidyverse [@citeTidyverse], knitr [@citeKnitr], ggplot2 [@citeGgplot], here [@citeHere], dplyr [@citeDplyr], arrow [@citeArrow], rstanarm [@citeRstanarm], broom.mixed [@citeBroomMixed], modelsummary [@citeModelSummary] and kableExtra [@citeKableExtra].
 
 ## Survey Data
 
@@ -364,12 +368,20 @@ for enhancing the reliability and validity of electoral forecasts.
 Here is a glimpse of the survey data set used
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 head(survey_data)
 ```
 
 ## Poststratification dataset
 Here is a glimpse of the poststratification data set used
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
 head(poststrat_data)
 ```
 

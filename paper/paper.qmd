@@ -285,10 +285,10 @@ United States is inclined towards the Democratic Party.
 
 Our analysis, based on sample data from the 2022 survey, followed by post-stratification focusing on key variables, Age,
 State, and Sex, yielded valuable insights into voter behavior. Notably, our findings indicated an inclination within the
-population towards voting for Biden or the Democratic Party.
+population towards voting for Biden from the Democratic Party.
 
-In the graph showcasing different regions and their voting for biden, we noticed that
-This is similar to the findings in [@James_2016] that address the same prediction for 2024. Our model and the
+In the graph showcasing different regions and their voting for Biden, we noticed that
+this is similar to the findings in an article by statistician James E. Campbell,  [@James_2016] that address the same prediction for 2024. Our model and the
 article predict that states that support Trump are from the middle and Midwest parts of the US, whereas coastal states
 and the Northeast tend to vote for Biden.
 
